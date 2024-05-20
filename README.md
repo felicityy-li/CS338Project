@@ -18,12 +18,12 @@
 
 3. Set Up Node.js Server:
 - Initialize a Node.js project in your project directory.
-- Install necessary dependencies such as express and mysql.
+- Install necessary dependencies such as Express and MySQL.
 - Create a server file with basic server startup.
 
 4. Set Up React.js Application:
 - Initialize a React.js project in your project directory.
-- Install necessary dependencies such as react, react-dom, and any other libraries you need.
+- Install necessary dependencies such as React, React-DOM, and any other libraries needed.
 - Create components and pages for the user interface.
 
 5. Run the Application:
