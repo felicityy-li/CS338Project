@@ -1,0 +1,201 @@
+PlaneId,ModelNum,Manufacturer,ManufacturerYear,PassengerCapacity
+PL1,9366,Israel Aerospace Industries,1972,210
+PL2,1891,Sikorsky Aircraft,1985,169
+PL3,7536,Sukhoi,1987,298
+PL4,4914,Antonov,1965,230
+PL5,9741,Honda Aircraft Company,2014,268
+PL6,1858,AgustaWestland,1970,291
+PL7,6702,Piaggio Aerospace,2000,210
+PL8,5767,China Aviation Industry Corporation II,2020,245
+PL9,7105,General Dynamics,1994,186
+PL10,4458,China Aviation Industry Corporation II,1984,279
+PL11,9460,AgustaWestland,2020,262
+PL12,9880,AgustaWestland,1995,174
+PL13,2648,China Aviation Industry Corporation I,1964,276
+PL14,7601,Boeing,2014,191
+PL15,6774,China Aviation Industry Corporation I,2019,242
+PL16,7362,Piper Aircraft,1962,300
+PL17,9773,Sikorsky Aircraft,2019,291
+PL18,8760,Sukhoi,1996,236
+PL19,6703,ICON Aircraft,1978,154
+PL20,4553,Stratos Aircraft,2020,224
+PL21,6769,Aerospace Industrial Development Corporation,1996,268
+PL22,5439,Korean Aerospace Industries,1967,164
+PL23,2576,Tupolev,2002,293
+PL24,6708,Textron Aviation,1988,176
+PL25,6040,China Aviation Industry Corporation I,1983,179
+PL26,1996,Aerospace Industrial Development Corporation,2004,294
+PL27,2058,General Dynamics,1988,290
+PL28,3672,Raytheon,1966,281
+PL29,2909,Sukhoi,2000,267
+PL30,6567,Honda Aircraft Company,1983,288
+PL31,9219,Cessna,1964,190
+PL32,6981,Aerospace Industrial Development Corporation,1974,233
+PL33,3824,Kawasaki Heavy Industries,1979,245
+PL34,8992,Hawker Beechcraft,2005,161
+PL35,3469,Cessna,1968,158
+PL36,9081,Honda Aircraft Company,1975,213
+PL37,4809,Israel Aerospace Industries,2013,267
+PL38,2176,Saab,2004,197
+PL39,6676,Korean Aerospace Industries,1984,235
+PL40,4477,Eurocopter,1977,208
+PL41,1106,Fokker Technologies,1969,280
+PL42,2290,Pacific Aerospace,2006,154
+PL43,2859,Kawasaki Heavy Industries,2011,169
+PL44,1645,Raytheon,1960,154
+PL45,3261,Pacific Aerospace,1965,154
+PL46,7581,Piaggio Aerospace,2014,212
+PL47,6614,Fokker Technologies,1992,247
+PL48,1499,Pacific Aerospace,2016,253
+PL49,9364,Sikorsky Aircraft,1998,240
+PL50,1322,Aero Vodochody,1969,207
+PL51,4803,Diamond Aircraft Industries,1988,185
+PL52,7063,Sukhoi,1971,254
+PL53,9753,Eviation Aircraft,1993,248
+PL54,1615,Comac,1969,190
+PL55,8143,Pilatus Aircraft,1970,221
+PL56,7710,Hindustan Aeronautics Limited,2013,281
+PL57,1246,China Aviation Industry Corporation I,1990,174
+PL58,5351,Gulfstream Aerospace,1962,231
+PL59,1990,Airbus,1976,285
+PL60,9053,Sukhoi,1962,263
+PL61,4906,Airbus,1981,194
+PL62,5594,Gulfstream Aerospace,2010,171
+PL63,6046,Aviat Aircraft,1994,290
+PL64,7082,Raytheon,1971,214
+PL65,7393,Eviation Aircraft,2012,186
+PL66,1096,Raytheon,1969,247
+PL67,3686,Eurocopter,1985,253
+PL68,7653,Aviat Aircraft,1996,300
+PL69,4214,Cessna,1989,215
+PL70,8397,Mitsubishi Aircraft Corporation,1964,263
+PL71,1339,Gulfstream Aerospace,1983,207
+PL72,4798,Aerospace Industrial Development Corporation,2020,279
+PL73,4547,Gulfstream Aerospace,1964,268
+PL74,9223,Pilatus Aircraft,2011,274
+PL75,9657,Gulfstream Aerospace,2012,150
+PL76,9619,Saab,2002,234
+PL77,5872,Diamond Aircraft Industries,1992,257
+PL78,4471,Mooney International,1973,285
+PL79,2232,Eviation Aircraft,1972,187
+PL80,9714,AgustaWestland,2015,281
+PL81,4346,Israel Aerospace Industries,1968,200
+PL82,1121,Israel Aerospace Industries,2013,244
+PL83,4255,Kawasaki Heavy Industries,1971,177
+PL84,1178,General Dynamics,2014,151
+PL85,1697,Aerospace Industrial Development Corporation,2017,204
+PL86,8805,Piper Aircraft,1961,173
+PL87,5830,Bell Helicopter,2007,220
+PL88,8256,Textron Aviation,1989,237
+PL89,7447,Airbus,1997,191
+PL90,5648,AgustaWestland,1961,165
+PL91,2625,Fokker Technologies,1995,183
+PL92,9590,Dassault Aviation,2004,186
+PL93,9424,Diamond Aircraft Industries,1989,258
+PL94,5174,Airbus,1986,218
+PL95,7150,Korean Aerospace Industries,1960,244
+PL96,5857,Indonesian Aerospace,1999,299
+PL97,2866,Lockheed Martin,2018,252
+PL98,7769,Stratos Aircraft,2011,150
+PL99,3246,Gulfstream Aerospace,1967,246
+PL100,2301,Textron Aviation,2000,291
+PL101,5883,Sikorsky Aircraft,1965,179
+PL102,2210,Ilyushin,2019,262
+PL103,3295,Lockheed Martin,1976,294
+PL104,7298,Sukhoi,2001,188
+PL105,5693,China Aviation Industry Corporation I,1994,281
+PL106,8250,Epic Aircraft,2018,261
+PL107,9252,Eurocopter,1963,191
+PL108,4631,Sikorsky Aircraft,2000,264
+PL109,2843,General Dynamics,1996,212
+PL110,5091,Tecnam,1989,169
+PL111,7853,Hindustan Aeronautics Limited,1990,261
+PL112,7572,Gulfstream Aerospace,2009,198
+PL113,2563,Aerospace Industrial Development Corporation,2017,268
+PL114,3862,Dassault Aviation,2013,201
+PL115,4247,Aerospace Industrial Development Corporation,2009,165
+PL116,9269,Aviat Aircraft,1997,227
+PL117,5526,Embraer,2005,184
+PL118,9908,Honda Aircraft Company,1966,166
+PL119,2868,Hindustan Aeronautics Limited,1984,243
+PL120,4122,Aviat Aircraft,1982,158
+PL121,9533,Bell Helicopter,2010,259
+PL122,9736,Cirrus Aircraft,1967,219
+PL123,4575,Hawker Beechcraft,2005,205
+PL124,9050,Bell Helicopter,1998,293
+PL125,1070,Aviat Aircraft,1983,280
+PL126,4008,Hindustan Aeronautics Limited,2002,272
+PL127,9956,Sikorsky Aircraft,1981,285
+PL128,7587,Piaggio Aerospace,1974,286
+PL129,8262,Northrop Grumman,1968,181
+PL130,4823,Ilyushin,1962,169
+PL131,6238,Indonesian Aerospace,1962,232
+PL132,9742,Eviation Aircraft,1966,296
+PL133,9463,Northrop Grumman,1974,224
+PL134,2856,Fokker Technologies,2018,210
+PL135,5397,Cessna,1966,284
+PL136,3395,Kawasaki Heavy Industries,1971,251
+PL137,5638,Epic Aircraft,1968,287
+PL138,7620,Piper Aircraft,2010,283
+PL139,6940,Ilyushin,1968,295
+PL140,7857,Sikorsky Aircraft,1972,203
+PL141,6706,Bombardier,1968,275
+PL142,3231,Tecnam,1963,299
+PL143,9298,Indonesian Aerospace,1978,275
+PL144,7833,Bombardier,1960,158
+PL145,5238,Gulfstream Aerospace,1964,290
+PL146,5591,Beechcraft,1999,212
+PL147,6941,Bell Helicopter,2003,170
+PL148,1699,Saab,2011,201
+PL149,9238,Raytheon,2005,255
+PL150,4797,Saab,1994,267
+PL151,6134,General Dynamics,1978,293
+PL152,4454,Piaggio Aerospace,2005,287
+PL153,5278,Mooney International,1983,275
+PL154,3964,AgustaWestland,1989,287
+PL155,2695,Tupolev,1966,165
+PL156,7152,Comac,2000,250
+PL157,7883,Bombardier,1984,228
+PL158,2347,Indonesian Aerospace,2009,187
+PL159,4282,Pacific Aerospace,1961,256
+PL160,7927,Aviat Aircraft,1987,217
+PL161,4941,Aero Vodochody,1962,197
+PL162,2816,Cessna,1988,245
+PL163,7471,Honda Aircraft Company,1989,197
+PL164,6938,Beechcraft,1978,266
+PL165,8841,Eurocopter,1983,202
+PL166,6284,Piaggio Aerospace,1969,241
+PL167,4348,Saab,1998,197
+PL168,9706,Kawasaki Heavy Industries,1965,277
+PL169,3224,Diamond Aircraft Industries,1999,204
+PL170,1642,Fokker Technologies,2019,231
+PL171,9420,Bombardier,1985,288
+PL172,7344,Lockheed Martin,1969,221
+PL173,9494,Stratos Aircraft,2000,260
+PL174,7127,Epic Aircraft,2008,271
+PL175,8392,China Aviation Industry Corporation II,1985,297
+PL176,3119,ICON Aircraft,2005,291
+PL177,3709,Epic Aircraft,1986,176
+PL178,6813,Pacific Aerospace,1964,292
+PL179,4783,Pilatus Aircraft,1993,205
+PL180,9644,Sikorsky Aircraft,1976,181
+PL181,9052,China Aviation Industry Corporation II,1964,238
+PL182,9096,Airbus,2009,284
+PL183,6369,Mitsubishi Aircraft Corporation,1964,228
+PL184,8744,Bombardier,2020,300
+PL185,4891,Cessna,1975,213
+PL186,1618,Piaggio Aerospace,2008,217
+PL187,3216,General Dynamics,1989,274
+PL188,2708,Aero Vodochody,1975,238
+PL189,3289,Israel Aerospace Industries,1997,297
+PL190,8083,Mitsubishi Aircraft Corporation,1960,219
+PL191,4379,Antonov,1968,212
+PL192,5194,Lockheed Martin,1986,263
+PL193,2967,Boeing,1971,212
+PL194,2795,Honda Aircraft Company,1965,264
+PL195,3420,Eurocopter,1965,268
+PL196,4548,Gulfstream Aerospace,1966,154
+PL197,4913,Eurocopter,2020,186
+PL198,7551,Gulfstream Aerospace,1989,218
+PL199,8549,Mitsubishi Aircraft Corporation,2005,182
+PL200,5659,Pilatus Aircraft,1986,170
