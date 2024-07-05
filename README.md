@@ -30,8 +30,12 @@
 - Start the React.js development server.
 
 ## Steps to Generate "Production" Dataset and Load Into Database 
-
-- Dataset Source URL: 
+- Dataset Source URL: https://docs.google.com/spreadsheets/d/17Yw6M64DnXAd3H8bzVjYxYuBQZWKBg9eiUowmcuEjhU/edit?usp=sharing
 - Code: 
+- Implemented Features:
+  1. Find Flight Status and Details
+  2. Passenger Check-in
+  3. Find Passenger's Past Flight Details
+  4. Plane Details 
 
 
