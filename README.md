@@ -34,7 +34,7 @@
 - Code: 
 - Implemented Features:
   1. Find Flight Status and Details
-  2. Passenger Check-in
+  2. Passenger Checking Flight Info
   3. Find Passenger's Past Flight Details
   4. Plane Details 
 
