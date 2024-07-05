@@ -1,4 +1,4 @@
-# Air Traffic Analysis System - Sample Database Setup Guide
+# LAX Flights Management System - Sample Database Setup Guide
 
 ## Introduction
 
@@ -28,3 +28,10 @@
 5. Run the Application:
 - Start the Node.js server.
 - Start the React.js development server.
+
+## Steps to Generate "Production" Dataset and Load Into Database 
+
+- Dataset Source URL: 
+- Code: 
+
+
