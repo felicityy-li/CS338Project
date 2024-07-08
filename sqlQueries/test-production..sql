@@ -1,9 +1,11 @@
 -- feature 1
 Select FlightNum, Airline, ScheduledDate, ScheduledTime 
 from Flights order by ScheduledDate, ScheduledTime
-limit 10;
-
-
+limit 10
+INTO OUTFILE './cs338Project/est-production1.out'
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
 
 -- feature 2
 WITH PassengerTravelFrequency AS (
@@ -41,7 +43,11 @@ JOIN PassengerAddresses ON PassengerAddresses.PassengerId = PASSENGER.PassengerI
 LEFT JOIN PassengerTravelFrequency ptf ON PASSENGER.PassengerId = ptf.PassengerId
 LEFT JOIN PassengerAirlinesFrequency paf ON PASSENGER.PassengerId = paf.PassengerId
 WHERE PASSENGER.PassengerId = 'P123'
-ORDER BY ptf.NumTravels DESC, paf.NumFlights DESC;
+ORDER BY ptf.NumTravels DESC, paf.NumFlights DESC
+INTO OUTFILE './cs338Project/est-production2.out'
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
 
 
 
@@ -56,9 +62,15 @@ SELECT
   FLIGHTS.Destination
 FROM FLIGHTS
 JOIN PASSENGER ON PASSENGER.FlightId = FLIGHTS.FlightId
-WHERE PASSENGER.PassengerId in ('P100', 'P101', 'P102', 'P1', 'P104', 'P82', 'P123')
-  AND FLIGHTS.ScheduledDate BETWEEN '2023-06-01' AND '2024-08-30'
-ORDER BY FLIGHTS.ScheduledDate DESC;
+WHERE PASSENGER.PassengerId in ('P100', 'P101', 'P102', 'P103', 'P104', 'P105')
+  AND FLIGHTS.ScheduledDate BETWEEN '2023-07-01' AND '2024-08-30'
+ORDER BY FLIGHTS.ScheduledDate DESC
+INTO OUTFILE './cs338Project/est-production3.out'
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
+
+
 
 
 
@@ -73,7 +85,11 @@ from (
   FROM PLANE 
   WHERE ManufacturerYear > 2017
 ) t
-WHERE rn = 1;
+WHERE rn = 1
+INTO OUTFILE './cs338Project/est-production4.out'
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
 
 
 
@@ -85,7 +101,12 @@ FROM FLIGHTS
 LEFT JOIN DELAY ON FLIGHTS.FlightId = DELAY.FlightId
 GROUP BY FLIGHTS.ScheduledDate
 ORDER BY FLIGHTS.ScheduledDate DESC
-LIMIT 5;
+LIMIT 5
+INTO OUTFILE './cs338Project/est-production5.out'
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
+
 
 
 
@@ -100,5 +121,9 @@ FROM PLANE
 JOIN CARGO ON PLANE.PlaneId = CARGO.PlaneId
 GROUP BY PLANE.PlaneId, PLANE.ModelNum
 HAVING SUM(CARGO.Weight) > 300000
-ORDER BY TotalWeight DESC;
+ORDER BY TotalWeight DESC
+INTO OUTFILE './cs338Project/est-production6.out'
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
 
