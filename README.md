@@ -15,12 +15,12 @@
 2. Load Sample Data:
 - Insert sample data into the tables.
 
-3. Set Up Node.js Server:
+3. Set Up Node.js Server: `node server.js`
 - Initialize a Node.js project in your project directory.
 - Install necessary dependencies such as Express and MySQL.
 - Create a server file with basic server startup.
 
-4. Set Up React.js Application:
+4. Set Up React.js Application: `npm start`
 - Initialize a React.js project in your project directory.
 - Install necessary dependencies such as React, React-DOM, and any other libraries needed.
 - Create components and pages for the user interface.
