@@ -1,61 +1,107 @@
-create table Flights (
-  FlightId int not null unique,
-  FlightNum int not null,
-  Airline VARCHAR(100),
-  PassengerCount int,
-  Arrival boolean,
-  ScheduledDate date,
-  ScheduledTime VARCHAR(100),
-  TerminalNum VARCHAR(100),
-  Domestic boolean
-);
+drop table Delay;
+drop table PassengerAddresses;
+drop table Passenger;
+drop table Flights;
+drop table Cargo;
+drop table Plane;
 
-load data infile 'datasets/Flights.csv' 
-into table Flights
-FIELDS TERMINATED BY ','
-ENCLOSED BY ''
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
-
-create TABLE Passengers (
-  PassengerId char(10) unique not null,
-  FirstName char(50),
-  LastName char(50),
-  Citizenship char(50)
-);
-
-load data infile 'datasets/Passengers.csv' 
-into table Passengers
-FIELDS TERMINATED BY ','
-ENCLOSED BY ''
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
-
-create TABLE Planes (
-  PlaneId CHAR(5) not NULL unique,
+create TABLE Plane (
+  PlaneId VARCHAR(10) PRIMARY KEY,
   ModelNum int,
-  Manufacturer text,
+  Manufacturer VARCHAR(100),
   ManufacturerYear YEAR,
   PassengerCapacity int
 );
 
-load data infile 'datasets/Planes.csv'
-into table Planes
-FIELDS TERMINATED BY ','
-ENCLOSED BY ''
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
-
-create table IF NOT EXISTS Delay (
-  DelayId VARCHAR(4) not NULL unique, 
-  DelayType VARCHAR(20), 
-  DelayDuration bigint, 
-  DelayDate date
+CREATE TABLE Cargo (
+  CargoId INT PRIMARY KEY,
+  PlaneId VARCHAR(10),
+  CargoType VARCHAR(20),
+  Weight INT,
+  FOREIGN KEY (PlaneId) REFERENCES Plane(PlaneId)
 );
 
-LOAD DATA INFILE 'datasets/Delay.csv' 
-into table Delay
-FIELDS TERMINATED BY ','
-ENCLOSED BY ''
+create table Flights (
+  FlightId VARCHAR(10) PRIMARY KEY,
+  FlightNum INT not null,
+  Airline VARCHAR(100),
+  PassengerCount INT,
+  Departure BOOLEAN,
+  ScheduledDate DATE,
+  ScheduledTime VARCHAR(50),
+  Terminal VARCHAR(50),
+  PlaneId VARCHAR(10),
+  International BOOLEAN,
+  Destination VARCHAR(100),
+  FOREIGN KEY (PlaneId) REFERENCES Plane(PlaneId)
+);
+
+CREATE TABLE Delay (
+  DelayId VARCHAR(10) PRIMARY KEY,
+  FlightId VARCHAR(10),
+  DelayType VARCHAR(100),
+  DelayDuration INT,
+  DelayDate DATE,
+  FOREIGN KEY (FlightId) REFERENCES Flights(FlightId)
+);
+
+CREATE TABLE Passenger (
+  PassengerId VARCHAR(10) PRIMARY KEY,
+  FlightId VARCHAR(10),
+  FirstName VARCHAR(100),
+  LastName VARCHAR(100),
+  Citizenship VARCHAR(100),
+  FOREIGN KEY (FlightId) REFERENCES Flights(FlightId)
+);
+
+CREATE TABLE PassengerAddresses (
+  AddressId INT AUTO_INCREMENT PRIMARY KEY,
+  PassengerId VARCHAR(10),
+  Street VARCHAR(100),
+  City VARCHAR(100),
+  State VARCHAR(2),
+  FOREIGN KEY (PassengerId) REFERENCES Passenger(PassengerId),
+  LastUpdated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+load data infile 'datasets/Plane.csv' 
+INTO TABLE Plane
+FIELDS TERMINATED BY ',' 
 LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
+IGNORE 1 ROWS
+(PlaneId, ModelNum, Manufacturer, ManufacturerYear, PassengerCapacity);
+
+load data infile 'datasets/Cargo.csv' 
+INTO TABLE Cargo
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(CargoId, PlaneId, CargoType, Weight);
+
+load data infile 'datasets/Flights.csv' 
+INTO TABLE Flights
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(FlightId, FlightNum, Airline, PassengerCount, Departure, ScheduledDate, ScheduledTime, Terminal, PlaneId, International, Destination);
+
+load data infile 'datasets/Delay.csv' 
+INTO TABLE Delay
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(DelayId, FlightId, DelayType, DelayDuration, DelayDate);
+
+load data infile 'datasets/Passenger.csv' 
+INTO TABLE Passenger
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(PassengerId, FlightId, FirstName, LastName, Citizenship);
+
+load data infile 'datasets/PassengerAddresses.csv' 
+INTO TABLE PassengerAddresses
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(Street, PassengerId, City, State);
