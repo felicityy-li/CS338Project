@@ -1,4 +1,4 @@
-# Air Traffic Analysis System - Sample Database Setup Guide
+# LAX Flights Management System - Sample Database Setup Guide
 
 ## Introduction
 
@@ -7,7 +7,7 @@
 - Node.js: [Install Node.js](https://nodejs.org/)
 
 ## Steps to Create and Load Sample Database
-1. Set Up MySQL Database:
+1. Set Up MySQL Database: `mysql.server start` 
 - Start the MySQL server on your local machine.
 - Create a new database for the project.
 - Create the necessary tables in the database.
@@ -28,3 +28,14 @@
 5. Run the Application:
 - Start the Node.js server.
 - Start the React.js development server.
+
+## Steps to Generate "Production" Dataset and Load Into Database 
+- Dataset Source URL: https://docs.google.com/spreadsheets/d/17Yw6M64DnXAd3H8bzVjYxYuBQZWKBg9eiUowmcuEjhU/edit?usp=sharing
+- Code: 
+- Implemented Features:
+  1. Find Flight Status and Details
+  2. Passenger Checking Flight Info
+  3. Find Passenger's Past Flight Details
+  4. Plane Details 
+
+
