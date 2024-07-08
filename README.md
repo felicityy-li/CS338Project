@@ -31,7 +31,7 @@
 
 ## Steps to Generate "Production" Dataset and Load Into Database 
 - Dataset Source URL: https://docs.google.com/spreadsheets/d/17Yw6M64DnXAd3H8bzVjYxYuBQZWKBg9eiUowmcuEjhU/edit?usp=sharing
-- Implemented Features: sqlQueries
+- Implemented Features: 
   1. Find Flight Status and Details
   2. Passenger Data
   3. Checking Flight Info for Passengers
