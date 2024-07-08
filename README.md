@@ -1,4 +1,4 @@
-# LAX Flights Management System - Sample Database Setup Guide
+# LAX Air Traffic Analysis System - Sample Database Setup Guide
 
 ## Introduction
 
@@ -34,8 +34,8 @@
 - Code: 
 - Implemented Features:
   1. Find Flight Status and Details
-  2. Passenger Checking Flight Info
-  3. Find Passenger's Past Flight Details
+  2. Passenger Data
+  3. Checking Flight Info for Passengers
   4. Plane Details 
 
 
