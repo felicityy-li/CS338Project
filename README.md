@@ -36,6 +36,8 @@
   1. Find Flight Status and Details
   2. Passenger Data
   3. Checking Flight Info for Passengers
-  4. Plane Details 
+  4. Plane Details
+  5. Delays per Day
+  6. Cargo Management
 
 
