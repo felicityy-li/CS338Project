@@ -7,7 +7,7 @@
 - Node.js: [Install Node.js](https://nodejs.org/)
 
 ## Steps to Create and Load Sample Database
-1. Set Up MySQL Database:
+1. Set Up MySQL Database: `mysql.server start` 
 - Start the MySQL server on your local machine.
 - Create a new database for the project.
 - Create the necessary tables in the database.
