@@ -13,7 +13,7 @@
       "username": "root",
       "database": "cs338",
       "connectionTimeout": 5,
-      "password": ""
+      "askForPassword": true
     }
   ]
 }
