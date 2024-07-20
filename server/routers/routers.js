@@ -15,7 +15,8 @@ router.get("/flight_status", async (req, res) => {
 
 router.get("/passenger_data", async (req, res) => {
   try {
-    const results = await queries.feature2();
+    const passengerIds = req.query.passengerIds;
+    const results = await queries.feature2(passengerIds);
     res.json(results);
   } catch (err) {
     console.error("Error executing query:", err.stack);
@@ -51,7 +52,8 @@ router.get("/plane_details", async (req, res) => {
 
 router.get("/delays", async (req, res) => {
   try {
-    const results = await queries.feature5();
+    const numDays = req.query.numDays;
+    const results = await queries.feature5(numDays);
     res.json(results);
   } catch (err) {
     console.error("Error executing query:", err.stack);

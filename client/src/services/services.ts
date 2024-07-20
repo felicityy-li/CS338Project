@@ -10,9 +10,11 @@ const api = axios.create({
   baseURL: "http://localhost:8080/api",
 });
 
-export const fetchFlightStatus = async (): Promise<Flight[]> => {
+export const fetchFlightStatus = async (limit?: number): Promise<Flight[]> => {
   try {
-    const response = await api.get<Flight[]>("/flight_status");
+    const response = await api.get<Flight[]>("/flight_status", {
+      params: { limit },
+    });
     return response.data;
   } catch (e) {
     console.error(e);
@@ -20,9 +22,15 @@ export const fetchFlightStatus = async (): Promise<Flight[]> => {
   }
 };
 
-export const fetchPassengerData = async (): Promise<Passenger[]> => {
+export const fetchPassengerData = async (
+  passengerIds: string[]
+): Promise<Passenger[]> => {
   try {
-    const response = await api.get<Passenger[]>("/passenger_data");
+    const response = await api.get<Passenger[]>("/passenger_data", {
+      params: {
+        passengerIds: passengerIds,
+      },
+    });
     return response.data;
   } catch (e) {
     console.error(e);
@@ -50,9 +58,13 @@ export const fetchPlaneDetails = async (): Promise<Plane[]> => {
   }
 };
 
-export const fetchDelays = async (): Promise<Delay[]> => {
+export const fetchDelays = async (numDays: number): Promise<Delay[]> => {
   try {
-    const response = await api.get<Delay[]>("/delays");
+    const response = await api.get<Delay[]>("/delays", {
+      params: {
+        numDays: numDays,
+      },
+    });
     return response.data;
   } catch (e) {
     console.error(e);

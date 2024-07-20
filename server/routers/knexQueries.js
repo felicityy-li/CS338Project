@@ -10,7 +10,7 @@ const feature1 = (limitVal) => {
   return query;
 };
 
-const feature2 = () => {
+const feature2 = (passengerIds) => {
   const query = db.raw(
     `WITH PassengerTravelFrequency AS (
       SELECT 
@@ -47,7 +47,8 @@ const feature2 = () => {
     LEFT JOIN PassengerTravelFrequency ptf ON PASSENGER.PassengerId = ptf.PassengerId
     LEFT JOIN PassengerAirlinesFrequency paf ON PASSENGER.PassengerId = paf.PassengerId
     WHERE PASSENGER.PassengerId IN (?)
-    ORDER BY ptf.NumTravels DESC, paf.NumFlights DESC`
+    ORDER BY ptf.NumTravels DESC, paf.NumFlights DESC`,
+    [passengerIds, passengerIds, passengerIds]
   );
   return query;
 };
@@ -90,7 +91,8 @@ const feature4 = (manufactureYear) => {
   return query;
 };
 
-const feature5 = () => {
+const feature5 = (numDays) => {
+  const endDate = '2023-12-31';
   const query = db("FLIGHTS")
     .select(
       db.raw("DATE(FLIGHTS.ScheduledDate) AS FlightDate"),
@@ -100,6 +102,10 @@ const feature5 = () => {
       )
     )
     .leftJoin("DELAY", "FLIGHTS.FlightId", "DELAY.FlightId")
+    .whereBetween("FLIGHTS.ScheduledDate", [
+      db.raw(`DATE_SUB('${endDate}', INTERVAL ? DAY)`, [numDays]),
+      endDate,
+    ])
     .groupBy("FLIGHTS.ScheduledDate")
     .orderBy("FLIGHTS.ScheduledDate", "desc");
   return query;

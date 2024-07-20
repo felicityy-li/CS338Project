@@ -4,9 +4,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
-import Delays from "./components/delays.tsx";
+import DelayGraph from "./components/delayGraph.tsx";
 import FlightStatus from "./components/flightDetails.tsx";
-import PassengerData from "./components/passengerData.tsx";
+import PassengerIdSearch from "./components/passengerIdSearch.tsx";
 import PassengerCheckIn from "./components/passengerCheckIn.tsx";
 import PlaneDetails from "./components/planeDetails.tsx";
 import CargoManagement from "./components/cargoMgmt.tsx";
@@ -50,7 +50,7 @@ function App() {
   return (
     <div className="App">
       <main>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        {/* <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -68,7 +68,7 @@ function App() {
           <FlightStatus />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <PassengerData />
+          <PassengerIdSearch />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
           <PassengerCheckIn />
@@ -81,7 +81,8 @@ function App() {
         </CustomTabPanel>
         <CustomTabPanel value={value} index={5}>
           <CargoManagement />
-        </CustomTabPanel>
+        </CustomTabPanel> */}
+        <DelayGraph days={10}/>
       </main>
     </div>
   );
