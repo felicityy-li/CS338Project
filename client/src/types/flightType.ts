@@ -4,3 +4,10 @@ export interface Flight {
   ScheduledDate: string;
   ScheduledTime: string;
 }
+
+export interface AirlineTypes {
+  Airline: string;
+}
+
+
+

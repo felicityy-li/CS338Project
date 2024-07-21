@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
-import DelayGraph from "./components/delayGraph.tsx";
+import NumDelaysGraph from "./components/numberOfDelaysGraph.tsx";
 import FlightStatus from "./components/flightDetails.tsx";
-import PassengerIdSearch from "./components/passengerIdSearch.tsx";
+import PassengerDestinations from "./components/passengerDestinations.tsx";
 import PassengerCheckIn from "./components/passengerCheckIn.tsx";
 import PlaneDetails from "./components/planeDetails.tsx";
 import CargoManagement from "./components/cargoMgmt.tsx";
@@ -41,21 +41,51 @@ function a11yProps(index) {
 }
 
 function App() {
+  const dayOptions = [30, 60, 90];
   const [value, setValue] = useState(0);
+  const [days, setDays] = useState(30);
+  const [isHovered, setIsHovered] = useState(false);
+  const intervalRef = useRef(null);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  useEffect(() => {
+    const cycleDays = () => {
+      setDays((prevDays) => {
+        const currentIndex = dayOptions.indexOf(prevDays);
+        const nextIndex = (currentIndex + 1) % dayOptions.length;
+        return dayOptions[nextIndex];
+      });
+    };
+
+    const startTimer = () => {
+      intervalRef.current = setInterval(cycleDays, 3000);
+    };
+
+    if (!isHovered) {
+      startTimer();
+    }
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [isHovered]);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (intervalRef.current) clearInterval(intervalRef.current);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   return (
     <div className="App">
       <main>
-        {/* <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-          >
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs value={value} onChange={handleChange}>
             <Tab label="Feature One" {...a11yProps(0)} />
             <Tab label="Feature Two" {...a11yProps(1)} />
             <Tab label="Feature Three" {...a11yProps(2)} />
@@ -68,7 +98,7 @@ function App() {
           <FlightStatus />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <PassengerIdSearch />
+          <PassengerDestinations />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
           <PassengerCheckIn />
@@ -77,12 +107,13 @@ function App() {
           <PlaneDetails />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={4}>
-          <Delays />
+          <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <NumDelaysGraph days={days} />
+          </div>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={5}>
           <CargoManagement />
-        </CustomTabPanel> */}
-        <DelayGraph days={10}/>
+        </CustomTabPanel>
       </main>
     </div>
   );

@@ -15,8 +15,7 @@ router.get("/flight_status", async (req, res) => {
 
 router.get("/passenger_data", async (req, res) => {
   try {
-    const passengerIds = req.query.passengerIds;
-    const results = await queries.feature2(passengerIds);
+    const results = await queries.feature2();
     res.json(results);
   } catch (err) {
     console.error("Error executing query:", err.stack);
@@ -24,14 +23,20 @@ router.get("/passenger_data", async (req, res) => {
   }
 });
 
+router.get("/distinct_airlines", async (req, res) => {
+  try {
+    const results = await queries.airlineQuery();
+    res.json(results);
+  } catch (e) {
+    console.error(err.stack);
+    res.status(500).send("Error executing query");
+  }
+});
+
 router.get("/passenger_check_in", async (req, res) => {
   try {
-    const { passengerIds, startDate, endDate } = req.query;
-    const results = await queries.feature3(
-      JSON.parse(passengerIds),
-      startDate,
-      endDate
-    );
+    const { passengerIds } = req.query;
+    const results = await queries.feature3(passengerIds);
     res.json(results);
   } catch (err) {
     console.error("Error executing query:", err.stack);

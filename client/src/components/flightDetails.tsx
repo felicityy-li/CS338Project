@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchFlightStatus } from "../services/services.ts";
-import { Flight } from "../types/flightDetailType.ts";
+import { Flight } from "../types/flightType.ts";
 
 const FlightStatus: React.FC = () => {
   const [flights, setFlights] = useState<Flight[]>([]);

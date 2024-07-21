@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { Flight } from "../types/flightDetailType";
+import { Flight, AirlineTypes } from "../types/flightType";
 import { Delay } from "../types/delayType";
 import { Passenger, CheckIn } from "../types/passengerTypes";
 import { Plane } from "../types/planeType";
@@ -22,15 +22,9 @@ export const fetchFlightStatus = async (limit?: number): Promise<Flight[]> => {
   }
 };
 
-export const fetchPassengerData = async (
-  passengerIds: string[]
-): Promise<Passenger[]> => {
+export const fetchPassengerData = async (): Promise<Passenger[]> => {
   try {
-    const response = await api.get<Passenger[]>("/passenger_data", {
-      params: {
-        passengerIds: passengerIds,
-      },
-    });
+    const response = await api.get<Passenger[]>("/passenger_data");
     return response.data;
   } catch (e) {
     console.error(e);
@@ -38,9 +32,25 @@ export const fetchPassengerData = async (
   }
 };
 
-export const fetchPassengerCheckIn = async (): Promise<CheckIn[]> => {
+export const fetchDistinctAirlines = async (): Promise<AirlineTypes[]> => {
   try {
-    const response = await api.get<CheckIn[]>("/passenger_check_in");
+    const response = await api.get<AirlineTypes[]>("/distinct_airlines");
+    return response.data;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+export const fetchPassengerCheckIn = async (
+  passengerIds: string[]
+): Promise<CheckIn[]> => {
+  try {
+    const response = await api.get<CheckIn[]>("/passenger_check_in", {
+      params: {
+        passengerIds: passengerIds,
+      },
+    });
     return response.data;
   } catch (e) {
     console.error(e);

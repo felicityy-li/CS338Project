@@ -10,66 +10,83 @@ const feature1 = (limitVal) => {
   return query;
 };
 
-const feature2 = (passengerIds) => {
-  const query = db.raw(
-    `WITH PassengerTravelFrequency AS (
-      SELECT 
-        PASSENGER.PassengerId, 
-        PASSENGER.FirstName, 
-        PASSENGER.LastName, 
-        COUNT(FLIGHTS.FlightId) AS NumTravels
-      FROM PASSENGER
-      JOIN FLIGHTS ON PASSENGER.FlightId = FLIGHTS.FlightId
-      WHERE PASSENGER.PassengerId IN (?)
-      GROUP BY PASSENGER.PassengerId, PASSENGER.FirstName, PASSENGER.LastName
-    ),
-    PassengerAirlinesFrequency AS (
-      SELECT 
-        PASSENGER.PassengerId, 
-        FLIGHTS.Airline, 
-        COUNT(FLIGHTS.FlightId) AS NumFlights
-      FROM PASSENGER
-      JOIN FLIGHTS ON PASSENGER.FlightId = FLIGHTS.FlightId
-      WHERE PASSENGER.PassengerId IN (?)
-      GROUP BY PASSENGER.PassengerId, FLIGHTS.Airline
+const feature2 = () => {
+  const subquery1 = db("PASSENGER")
+    .join("FLIGHTS", "PASSENGER.FlightId", "FLIGHTS.FlightId")
+    .select(
+      "PASSENGER.PassengerId",
+      "PASSENGER.FirstName",
+      "PASSENGER.LastName"
     )
-    SELECT 
-      PASSENGER.PassengerId, 
-      PASSENGER.FirstName, 
-      PASSENGER.LastName, 
-      PassengerAddresses.City, 
-      PassengerAddresses.State, 
-      ptf.NumTravels AS TotalFlights,
-      paf.Airline,
-      paf.NumFlights AS FlightsWithAirline
-    FROM PASSENGER
-    JOIN PassengerAddresses ON PassengerAddresses.PassengerId = PASSENGER.PassengerId
-    LEFT JOIN PassengerTravelFrequency ptf ON PASSENGER.PassengerId = ptf.PassengerId
-    LEFT JOIN PassengerAirlinesFrequency paf ON PASSENGER.PassengerId = paf.PassengerId
-    WHERE PASSENGER.PassengerId IN (?)
-    ORDER BY ptf.NumTravels DESC, paf.NumFlights DESC`,
-    [passengerIds, passengerIds, passengerIds]
-  );
+    .count("FLIGHTS.FlightId as NumTravels")
+    .groupBy(
+      "PASSENGER.PassengerId",
+      "PASSENGER.FirstName",
+      "PASSENGER.LastName"
+    )
+    .as("PassengerTravelFrequency");
+
+  const subquery2 = db("PASSENGER")
+    .join("FLIGHTS", "PASSENGER.FlightId", "FLIGHTS.FlightId")
+    .select("PASSENGER.PassengerId", "FLIGHTS.Airline")
+    .count("FLIGHTS.FlightId as NumFlights")
+    .groupBy("PASSENGER.PassengerId", "FLIGHTS.Airline")
+    .as("PassengerAirlinesFrequency");
+
+  const query = db("PASSENGER")
+    .join(
+      "PassengerAddresses",
+      "PassengerAddresses.PassengerId",
+      "PASSENGER.PassengerId"
+    )
+    .leftJoin(
+      subquery1,
+      "PASSENGER.PassengerId",
+      "PassengerTravelFrequency.PassengerId"
+    )
+    .leftJoin(
+      subquery2,
+      "PASSENGER.PassengerId",
+      "PassengerAirlinesFrequency.PassengerId"
+    )
+    .select(
+      "PASSENGER.PassengerId",
+      "PASSENGER.FirstName",
+      "PASSENGER.LastName",
+      "PassengerAddresses.City",
+      "PassengerAddresses.State",
+      "PassengerTravelFrequency.NumTravels as TotalFlights",
+      "PassengerAirlinesFrequency.Airline",
+      "PassengerAirlinesFrequency.NumFlights as FlightsWithAirline"
+    )
+    .orderBy([
+      { column: "PassengerTravelFrequency.NumTravels", order: "desc" },
+      { column: "PassengerAirlinesFrequency.NumFlights", order: "desc" },
+    ]);
+
   return query;
 };
 
-const feature3 = (passengerIds, startDate, endDate) => {
-  const query = db.raw(
-    `SELECT 
-      FLIGHTS.FlightNum, 
-      FLIGHTS.Airline, 
-      FLIGHTS.Terminal, 
-      FLIGHTS.ScheduledDate, 
-      FLIGHTS.ScheduledTime, 
-      FLIGHTS.International, 
-      FLIGHTS.Destination
-    FROM FLIGHTS
-    JOIN PASSENGER ON PASSENGER.FlightId = FLIGHTS.FlightId
-    WHERE PASSENGER.PassengerId in (?)
-      AND FLIGHTS.ScheduledDate BETWEEN ? AND ?
-    ORDER BY FLIGHTS.ScheduledDate DESC`,
-    [passengerIds, startDate, endDate]
-  );
+const airlineQuery = () => {
+  const query = db("Flights").distinct("Airline");
+  return query;
+};
+
+const feature3 = (passengerIds) => {
+  const query = db("FLIGHTS")
+    .select(
+      "FLIGHTS.FlightNum",
+      "FLIGHTS.Airline",
+      "FLIGHTS.Terminal",
+      "FLIGHTS.ScheduledDate",
+      "FLIGHTS.ScheduledDate",
+      "FLIGHTS.ScheduledTime",
+      "FLIGHTS.International",
+      "FLIGHTS.Destination"
+    )
+    .join("PASSENGER", "PASSENGER.FlightId", "FLIGHTS.FlightId")
+    .whereIn("PASSENGER.PassengerId", passengerIds)
+    .orderBy("FLIGHTS.ScheduledDate", "desc");
   return query;
 };
 
@@ -92,7 +109,7 @@ const feature4 = (manufactureYear) => {
 };
 
 const feature5 = (numDays) => {
-  const endDate = '2023-12-31';
+  const endDate = "2023-12-31";
   const query = db("FLIGHTS")
     .select(
       db.raw("DATE(FLIGHTS.ScheduledDate) AS FlightDate"),
@@ -130,6 +147,7 @@ const feature6 = (weight) => {
 module.exports = {
   feature1,
   feature2,
+  airlineQuery,
   feature3,
   feature4,
   feature5,

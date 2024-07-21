@@ -12,6 +12,6 @@ export interface Passenger {
 export interface CheckIn {
   FlightNum: number;
   Airline: string;
-  ScheduledData: string;
+  ScheduledDate: string;
   ScheduledTime: string;
 }

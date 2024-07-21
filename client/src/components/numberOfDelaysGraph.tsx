@@ -25,7 +25,7 @@ ChartJS.register(
   Legend
 );
 
-const DelayGraph: React.FC<DelayGraphProps> = ({ days }) => {
+const NumDelaysGraph: React.FC<DelayGraphProps> = ({ days }) => {
   const [delays, setDelays] = useState<Delay[]>([]);
 
   useEffect(() => {
@@ -88,4 +88,4 @@ const DelayGraph: React.FC<DelayGraphProps> = ({ days }) => {
   );
 };
 
-export default DelayGraph;
+export default NumDelaysGraph;
