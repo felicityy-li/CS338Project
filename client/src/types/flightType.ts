@@ -1,8 +1,10 @@
 export interface Flight {
-  FlightNum: string;
+  FlightNum: number;
   Airline: string;
   ScheduledDate: string;
   ScheduledTime: string;
+  FlightId: number;
+  PlaneId: string;
 }
 
 export interface AirlineTypes {
@@ -13,4 +15,3 @@ export interface AirlineDestinations {
   Airline: string;
   NumberOfDestinations: number;
 }
-

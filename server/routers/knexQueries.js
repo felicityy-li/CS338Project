@@ -2,11 +2,16 @@ const db = require("../config/knexDbConfig");
 
 const feature1 = (limitVal) => {
   const query = db("Flights")
-    .select("FlightNum", "Airline", "ScheduledDate", "ScheduledTime")
-    .orderBy(["ScheduledDate", "ScheduledTime"]);
-  if (limitVal) {
-    query.limit(limitVal);
-  }
+    .select(
+      "FlightNum",
+      "Airline",
+      "ScheduledDate",
+      "ScheduledTime",
+      "FlightId",
+      "PlaneId"
+    )
+    .orderBy(["ScheduledDate", "ScheduledTime"])
+    .limit(limitVal);
   return query;
 };
 
