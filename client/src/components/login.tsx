@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { fetchPassengerLogin } from "../services/fancyFeatureServices.ts";
 import plane from "../images/plane.jpg";
 import { Box, TextField, Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -20,7 +22,8 @@ const Login: React.FC = () => {
       const result = await fetchPassengerLogin(email, password);
       if (result.success) {
         setError(null);
-        console.log("yay")
+        navigate("/checkin");
+        console.log("yay");
       } else {
         setError(result.message || "Login failed.");
       }

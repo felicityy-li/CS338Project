@@ -62,14 +62,14 @@ const PlaneManufacturedDoubleBarGraph: React.FC = () => {
     labels: paginatedLabels,
     datasets: [
       {
-        label: "Oldest Year Capacity: ",
+        label: "Oldest Year Capacity",
         data: oldestData,
         backgroundColor: "rgba(255, 99, 132, 0.2)",
         borderColor: "rgba(255, 99, 132, 1)",
         borderWidth: 1,
       },
       {
-        label: "Newest Year Capacity: ",
+        label: "Newest Year Capacity",
         data: newestData,
         backgroundColor: "rgba(54, 162, 235, 0.2)",
         borderColor: "rgba(54, 162, 235, 1)",

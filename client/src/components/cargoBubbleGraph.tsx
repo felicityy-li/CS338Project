@@ -50,7 +50,7 @@ const CargoManagement: React.FC = () => {
   const options = {
     plugins: {
       legend: {
-        display: true,
+        display: false,
       },
     },
     scales: {
@@ -71,31 +71,33 @@ const CargoManagement: React.FC = () => {
 
   return (
     <div>
-      <Typography variant="h6">Select Cargo Type</Typography>
-      <FormControl component="fieldset">
-        <FormGroup row>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={selectedCargoType === "Freight"}
-                onChange={handleCheckboxChange}
-                name="Freight"
-              />
-            }
-            label="Freight"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={selectedCargoType === "Mail"}
-                onChange={handleCheckboxChange}
-                name="Mail"
-              />
-            }
-            label="Mail"
-          />
-        </FormGroup>
-      </FormControl>
+      <div style={{ width: "90%", margin: "auto", marginTop: "3%" }}>
+        <Typography variant="h6">Select Cargo Type</Typography>
+        <FormControl component="fieldset">
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={selectedCargoType === "Freight"}
+                  onChange={handleCheckboxChange}
+                  name="Freight"
+                />
+              }
+              label="Freight"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={selectedCargoType === "Mail"}
+                  onChange={handleCheckboxChange}
+                  name="Mail"
+                />
+              }
+              label="Mail"
+            />
+          </FormGroup>
+        </FormControl>
+      </div>
 
       <Bubble data={chartData} options={options} />
     </div>

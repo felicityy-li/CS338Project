@@ -101,7 +101,7 @@ const DelayDurationHeatmap: React.FC = () => {
   if (heatmapData.length === 0) return <div>Loading...</div>;
 
   return (
-    <div style={{ width: "90%", margin: "auto", marginTop: "3%" }}>
+    <div>
       <Chart
         options={chartOptions}
         series={heatmapData}

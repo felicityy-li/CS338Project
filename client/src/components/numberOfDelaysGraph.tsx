@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { fetchDelays } from "../services/services.ts";
 import { Delay, DelayGraphProps } from "../types/delayType.ts";
 import {
@@ -25,8 +25,12 @@ ChartJS.register(
   Legend
 );
 
-const NumDelaysGraph: React.FC<DelayGraphProps> = ({ days }) => {
+const NumDelaysGraph: React.FC<DelayGraphProps> = () => {
   const [delays, setDelays] = useState<Delay[]>([]);
+  const [isHovered, setIsHovered] = useState(false);
+  const dayOptions = [60, 30, 20, 10, 5];
+  const [days, setDays] = useState(30);
+  const intervalRef = useRef(null);
 
   useEffect(() => {
     const getDelays = async () => {
@@ -43,6 +47,36 @@ const NumDelaysGraph: React.FC<DelayGraphProps> = ({ days }) => {
     };
     getDelays();
   }, [days]);
+
+  useEffect(() => {
+    const cycleDays = () => {
+      setDays((prevDays) => {
+        const currentIndex = dayOptions.indexOf(prevDays);
+        const nextIndex = (currentIndex + 1) % dayOptions.length;
+        return dayOptions[nextIndex];
+      });
+    };
+
+    const startTimer = () => {
+      intervalRef.current = setInterval(cycleDays, 3000);
+    };
+
+    if (!isHovered) {
+      startTimer();
+    }
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [isHovered]);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (intervalRef.current) clearInterval(intervalRef.current);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
 
   const data = {
     labels: delays.map((delay) => delay.FlightDate),
@@ -109,7 +143,9 @@ const NumDelaysGraph: React.FC<DelayGraphProps> = ({ days }) => {
 
   return (
     <div>
-      <Bar data={data} options={options} />
+      <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <Bar data={data} options={options} />
+      </div>
     </div>
   );
 };
