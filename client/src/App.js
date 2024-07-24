@@ -9,7 +9,7 @@ import FlightStatus from "./components/flightDetails.tsx";
 import PassengerDestinations from "./components/passengerDestinations.tsx";
 import PassengerCheckIn from "./components/passengerCheckIn.tsx";
 import PlaneDetails from "./components/planeDetails.tsx";
-import CargoManagement from "./components/cargoMgmt.tsx";
+import CargoManagement from "./components/cargoBubbleGraph.tsx";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,7 +41,7 @@ function a11yProps(index) {
 }
 
 function App() {
-  const dayOptions = [30, 60, 90];
+  const dayOptions = [90, 60, 30, 10, 5];
   const [value, setValue] = useState(0);
   const [days, setDays] = useState(30);
   const [isHovered, setIsHovered] = useState(false);
@@ -84,7 +84,7 @@ function App() {
   return (
     <div className="App">
       <main>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        {/* <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs value={value} onChange={handleChange}>
             <Tab label="Feature One" {...a11yProps(0)} />
             <Tab label="Feature Two" {...a11yProps(1)} />
@@ -113,7 +113,7 @@ function App() {
         </CustomTabPanel>
         <CustomTabPanel value={value} index={5}>
           <CargoManagement />
-        </CustomTabPanel>
+        </CustomTabPanel> */}
       </main>
     </div>
   );

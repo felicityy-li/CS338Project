@@ -9,5 +9,8 @@ export interface AirlineTypes {
   Airline: string;
 }
 
-
+export interface AirlineDestinations {
+  Airline: string;
+  NumberOfDestinations: number;
+}
 

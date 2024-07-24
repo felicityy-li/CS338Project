@@ -1,47 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { Passenger } from "../types/passengerTypes.ts";
-import { AirlineTypes } from "../types/flightType.ts";
-import {
-  fetchPassengerData,
-  fetchDistinctAirlines,
-} from "../services/services.ts";
+import { AirlineDestinations } from "../types/flightType.ts";
+import { fetchPassengerData } from "../services/services.ts";
 import { airlineToLocationMap, Location } from "./airlineToLocationMap.ts";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
 import marker from "../images/marker.png";
 import "leaflet/dist/leaflet.css";
 
-const myIcon = new Icon({
-  iconUrl: marker,
-  iconSize: [10, 15],
-});
+const getIconSize = (numDestinations: number): [number, number] => {
+  if (numDestinations >= 90) return [25, 30];
+  if (numDestinations >= 80) return [20, 25];
+  if (numDestinations >= 70) return [15, 20];
+  return [10, 15];
+};
 
 const PassengerDestinations: React.FC = () => {
-  const [passengerData, setPassengerData] = useState<Passenger[]>([]);
-  const [airlineNamesData, setAirlineNamesData] = useState<AirlineTypes[]>([]);
-  const [destinations, setDestinations] = useState<Location[]>([]);
-
-  useEffect(() => {
-    const getPassengerData = async () => {
-      try {
-        const data = await fetchPassengerData();
-        setPassengerData(data);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    getPassengerData();
-  }, []);
+  const [destinationsData, setDestinationsData] = useState<
+    (AirlineDestinations & { location: Location })[]
+  >([]);
 
   useEffect(() => {
     const getDistinctAirlines = async () => {
       try {
-        const data = await fetchDistinctAirlines();
-        const mappedLocations = data.map(
-          (airline) => airlineToLocationMap[airline.Airline]
-        );
-        setAirlineNamesData(data);
-        setDestinations(mappedLocations);
+        const data = await fetchPassengerData();
+        const combinedData = data
+          .map((airline) => ({
+            ...airline,
+            location: airlineToLocationMap[airline.Airline],
+          }))
+          .filter((item) => item.location);
+        setDestinationsData(combinedData);
       } catch (e) {
         console.error(e);
         throw e;
@@ -62,18 +50,22 @@ const PassengerDestinations: React.FC = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {destinations.map(
-          (location, index) =>
-            location && (
-              <Marker
-                key={index}
-                position={[location.lat, location.lng]}
-                icon={myIcon}
-              >
-                <Popup>{airlineNamesData[index]?.Airline}</Popup>
-              </Marker>
-            )
-        )}
+        {destinationsData.map((item, index) => {
+          const iconSize = getIconSize(item.NumberOfDestinations);
+          const dynamicIcon = new Icon({
+            iconUrl: marker,
+            iconSize: iconSize,
+          });
+          return (
+            <Marker
+              key={index}
+              position={[item.location.lat, item.location.lng]}
+              icon={dynamicIcon}
+            >
+              <Popup>{item.Airline}</Popup>
+            </Marker>
+          );
+        })}
       </MapContainer>
     </div>
   );

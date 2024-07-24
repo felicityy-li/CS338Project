@@ -37,10 +37,11 @@ const PassengerCheckIn: React.FC = () => {
   };
 
   const columns = [
-    { field: "FlightNum", headerName: "Flight Number", width: 200 },
-    { field: "Airline", headerName: "Airline", width: 250 },
+    { field: "FlightNum", headerName: "Flight Number", width: 210 },
+    { field: "Terminal", headerName: "Terminal", width: 150 },
+    { field: "Airline", headerName: "Airline", width: 230 },
     { field: "ScheduledDate", headerName: "Scheduled Date", width: 300 },
-    { field: "ScheduledTime", headerName: "Scheduled Time", width: 150 },
+    { field: "ScheduledTime", headerName: "Scheduled Time", width: 230 },
   ];
 
   return (

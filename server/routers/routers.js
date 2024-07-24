@@ -66,10 +66,10 @@ router.get("/delays", async (req, res) => {
   }
 });
 
-router.get("/cargo", async (req, res) => {
+router.get("/cargo_types_data", async (req, res) => {
   try {
-    const weight = req.query.weight;
-    const results = await queries.feature6(weight);
+    const type = req.query.type;
+    const results = await queries.feature6(type);
     res.json(results);
   } catch (err) {
     console.error("Error executing query:", err.stack);

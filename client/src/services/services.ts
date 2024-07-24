@@ -1,10 +1,10 @@
 import axios from "axios";
 
-import { Flight, AirlineTypes } from "../types/flightType";
+import { Flight, AirlineTypes, AirlineDestinations } from "../types/flightType";
 import { Delay } from "../types/delayType";
 import { Passenger, CheckIn } from "../types/passengerTypes";
 import { Plane } from "../types/planeType";
-import { Cargo } from "../types/cargoType";
+import { CargoPlane, CargoBasedType } from "../types/cargoType";
 
 const api = axios.create({
   baseURL: "http://localhost:8080/api",
@@ -22,9 +22,9 @@ export const fetchFlightStatus = async (limit?: number): Promise<Flight[]> => {
   }
 };
 
-export const fetchPassengerData = async (): Promise<Passenger[]> => {
+export const fetchPassengerData = async (): Promise<AirlineDestinations[]> => {
   try {
-    const response = await api.get<Passenger[]>("/passenger_data");
+    const response = await api.get<AirlineDestinations[]>("/passenger_data");
     return response.data;
   } catch (e) {
     console.error(e);
@@ -82,9 +82,13 @@ export const fetchDelays = async (numDays: number): Promise<Delay[]> => {
   }
 };
 
-export const fetchCargo = async (): Promise<Cargo[]> => {
+export const fetchCargoTypesData = async (type: string): Promise<CargoBasedType[]> => {
   try {
-    const response = await api.get<Cargo[]>("/cargo");
+    const response = await api.get<CargoBasedType[]>("/cargo_types_data", {
+      params: {
+        type: type,
+      },
+    });
     return response.data;
   } catch (e) {
     console.error(e);

@@ -11,59 +11,12 @@ const feature1 = (limitVal) => {
 };
 
 const feature2 = () => {
-  const subquery1 = db("PASSENGER")
-    .join("FLIGHTS", "PASSENGER.FlightId", "FLIGHTS.FlightId")
-    .select(
-      "PASSENGER.PassengerId",
-      "PASSENGER.FirstName",
-      "PASSENGER.LastName"
-    )
-    .count("FLIGHTS.FlightId as NumTravels")
-    .groupBy(
-      "PASSENGER.PassengerId",
-      "PASSENGER.FirstName",
-      "PASSENGER.LastName"
-    )
-    .as("PassengerTravelFrequency");
-
-  const subquery2 = db("PASSENGER")
-    .join("FLIGHTS", "PASSENGER.FlightId", "FLIGHTS.FlightId")
-    .select("PASSENGER.PassengerId", "FLIGHTS.Airline")
-    .count("FLIGHTS.FlightId as NumFlights")
-    .groupBy("PASSENGER.PassengerId", "FLIGHTS.Airline")
-    .as("PassengerAirlinesFrequency");
-
-  const query = db("PASSENGER")
-    .join(
-      "PassengerAddresses",
-      "PassengerAddresses.PassengerId",
-      "PASSENGER.PassengerId"
-    )
-    .leftJoin(
-      subquery1,
-      "PASSENGER.PassengerId",
-      "PassengerTravelFrequency.PassengerId"
-    )
-    .leftJoin(
-      subquery2,
-      "PASSENGER.PassengerId",
-      "PassengerAirlinesFrequency.PassengerId"
-    )
-    .select(
-      "PASSENGER.PassengerId",
-      "PASSENGER.FirstName",
-      "PASSENGER.LastName",
-      "PassengerAddresses.City",
-      "PassengerAddresses.State",
-      "PassengerTravelFrequency.NumTravels as TotalFlights",
-      "PassengerAirlinesFrequency.Airline",
-      "PassengerAirlinesFrequency.NumFlights as FlightsWithAirline"
-    )
-    .orderBy([
-      { column: "PassengerTravelFrequency.NumTravels", order: "desc" },
-      { column: "PassengerAirlinesFrequency.NumFlights", order: "desc" },
-    ]);
-
+  const query = db("Flights")
+    .select("Airline")
+    .count("* as NumberOfDestinations")
+    .where("Departure", 1)
+    .groupBy("Airline")
+    .orderBy("NumberOfDestinations", "desc");
   return query;
 };
 
@@ -128,19 +81,17 @@ const feature5 = (numDays) => {
   return query;
 };
 
-const feature6 = (weight) => {
-  const query = db("PLANE")
+const feature6 = (cargoType) => {
+  const query = db("Cargo")
     .select(
-      "PLANE.PlaneId",
-      "PLANE.ModelNum",
-      db.raw("COUNT(CARGO.CargoId) AS TotalCargos"),
-      db.raw("SUM(CARGO.Weight) AS TotalWeight"),
-      db.raw("AVG(CARGO.Weight) AS AverageWeight")
+      "PlaneId",
+      db.raw("COUNT(CargoId) AS TotalCargos"),
+      db.raw("SUM(Weight) AS TotalWeight"),
+      db.raw("AVG(Weight) AS AverageWeight")
     )
-    .join("CARGO", "PLANE.PlaneId", "CARGO.PlaneId")
-    .groupBy("PLANE.PlaneId", "PLANE.ModelNum")
-    .having(db.raw("SUM(CARGO.Weight) > ?", [weight]))
-    .orderBy("TotalWeight", "desc");
+    .where("CargoType", cargoType)
+    .groupBy("PlaneId")
+    .orderBy("TotalCargos");
   return query;
 };
 

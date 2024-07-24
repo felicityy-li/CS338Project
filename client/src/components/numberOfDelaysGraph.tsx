@@ -32,7 +32,11 @@ const NumDelaysGraph: React.FC<DelayGraphProps> = ({ days }) => {
     const getDelays = async () => {
       try {
         const data = await fetchDelays(days);
-        setDelays(data);
+        const sortedData = data.sort(
+          (a, b) =>
+            new Date(a.FlightDate).getTime() - new Date(b.FlightDate).getTime()
+        );
+        setDelays(sortedData);
       } catch (e) {
         console.error(e);
       }
@@ -66,21 +70,43 @@ const NumDelaysGraph: React.FC<DelayGraphProps> = ({ days }) => {
     responsive: true,
     plugins: {
       legend: {
-        position: "top" as const,
+        display: false,
       },
       title: {
         display: true,
-        text: "Number of Delays and Total Delay Duration Over Time",
+        text: "Number of Delays Certain Time Periods",
+        font: {
+          size: 30,
+        },
       },
     },
     scales: {
+      x: {
+        display: true,
+        title: {
+          display: true,
+          text: "Flight Dates",
+          font: {
+            size: 18,
+          },
+        },
+        ticks: {
+          display: false,
+        },
+      },
       y: {
         beginAtZero: true,
+        title: {
+          display: true,
+          text: "Number of Delays",
+          font: {
+            size: 18,
+          },
+        },
       },
     },
   };
 
-  console.log(delays);
   return (
     <div>
       <Bar data={data} options={options} />

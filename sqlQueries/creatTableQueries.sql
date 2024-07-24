@@ -64,6 +64,13 @@ CREATE TABLE PassengerAddresses (
   LastUpdated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+CREATE TABLE Accounts (
+  PassengerId VARCHAR(10) PRIMARY KEY,
+  UserEmail VARCHAR(100),
+  UserPassword VARCHAR(100),
+  FOREIGN KEY (PassengerId) REFERENCES Passenger(PassengerId)
+);
+
 load data infile 'datasets/Plane.csv' 
 INTO TABLE Plane
 FIELDS TERMINATED BY ',' 
@@ -105,3 +112,10 @@ FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS
 (Street, PassengerId, City, State);
+
+load data infile 'datasets/Accounts.csv' 
+INTO TABLE Accounts
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(PassengerId, UserEmail, UserPassword);
