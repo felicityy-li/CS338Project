@@ -89,39 +89,37 @@ const fancyFeature2 = () => {
  * double bar graphs
  * @returns
  */
-const fancyFeature3 = () => {
-  const newest = db("PLANE")
-    .select("Manufacturer")
-    .max("ManufacturerYear as MaxYear")
-    .groupBy("Manufacturer")
-    .having(db.raw("COUNT(*) > ?", [1]));
-
-  const oldest = db("PLANE")
-    .select("Manufacturer")
-    .min("ManufacturerYear as MinYear")
-    .groupBy("Manufacturer")
-    .having(db.raw("COUNT(*) > ?", [1]));
-
-  const query = db("PLANE")
-    .select(
-      "PlaneId",
-      "ModelNum",
-      "Manufacturer",
-      "ManufacturerYear",
-      "PassengerCapacity"
+const fancyFeature3 = async () => {
+  const result = await db.raw(`
+    WITH ManufacturerCounts AS (
+      SELECT Manufacturer
+      FROM PLANE
+      GROUP BY Manufacturer
+      HAVING COUNT(*) > 1
+    ),
+    NewestAndOldest AS (
+      SELECT PlaneId, ModelNum, Manufacturer, ManufacturerYear, PassengerCapacity
+      FROM PLANE
+      WHERE (Manufacturer, ManufacturerYear) IN (
+        SELECT Manufacturer, MAX(ManufacturerYear)
+        FROM PLANE
+        WHERE Manufacturer IN (SELECT Manufacturer FROM ManufacturerCounts)
+        GROUP BY Manufacturer
+      )
+      OR (Manufacturer, ManufacturerYear) IN (
+        SELECT Manufacturer, MIN(ManufacturerYear)
+        FROM PLANE
+        WHERE Manufacturer IN (SELECT Manufacturer FROM ManufacturerCounts)
+        GROUP BY Manufacturer
+      )
     )
-    .whereIn(
-      ["Manufacturer", "ManufacturerYear"],
-      db
-        .select("Manufacturer", "MaxYear")
-        .from(newest)
-        .unionAll(db.select("Manufacturer", "MinYear").from(oldest), true)
-        .as("combined")
-    )
-    .orderBy("Manufacturer")
-    .orderBy("ManufacturerYear");
-  return query;
+    SELECT PlaneId, ModelNum, Manufacturer, ManufacturerYear, PassengerCapacity
+    FROM NewestAndOldest
+    ORDER BY Manufacturer, ManufacturerYear;
+  `);
+  return result;
 };
+
 
 /**
  * login / security check feature

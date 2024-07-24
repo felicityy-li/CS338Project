@@ -25,7 +25,7 @@ router.get("/passenger_rec", async (req, res) => {
 router.get("/oldest_newest_manufactured", async (req, res) => {
   try {
     const results = await queries.fancyFeature3();
-    res.json(results);
+    res.json(results[0]);
   } catch (err) {
     console.error("Error executing query:", err.stack);
     res.status(500).send("Error executing query");
