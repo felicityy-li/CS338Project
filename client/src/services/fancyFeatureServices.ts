@@ -45,15 +45,26 @@ export const fetchOldestNewestManufacture = async (): Promise<
 export const fetchPassengerLogin = async (
   email: string,
   password: string
-): Promise<PassengerLogin[]> => {
+): Promise<{ success: boolean; message?: string }> => {
   try {
-    const response = await api.get<PassengerLogin[]>("/login", {
-      params: {
-        email: email,
-        password: password,
-      },
-    });
-    return response.data;
+    const response = await api.get<{ success: boolean; message?: string }>(
+      "/login",
+      {
+        params: {
+          email: email,
+          password: password,
+        },
+      }
+    );
+
+    if (response.data.success) {
+      return { success: true };
+    } else {
+      return {
+        success: false,
+        message: response.data.message || "Invalid login details.",
+      };
+    }
   } catch (e) {
     console.error(e);
     throw e;
