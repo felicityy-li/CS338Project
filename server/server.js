@@ -1,7 +1,9 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const featureRoutes = require("./routers/routers");
 const cors = require("cors");
+
+const featureRoutes = require("./routers/routers");
+const fancyFeatureRoutes = require("./routers/fancyRouters");
 
 dotenv.config();
 
@@ -10,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api", featureRoutes);
+app.use("/api", fancyFeatureRoutes);
 
 const PORT = process.env.PORT || 8080;
 

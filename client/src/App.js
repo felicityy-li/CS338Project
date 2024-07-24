@@ -10,6 +10,7 @@ import PassengerDestinations from "./components/passengerDestinations.tsx";
 import PassengerCheckIn from "./components/passengerCheckIn.tsx";
 import PlaneManufactureYearsGraph from "./components/planeManufactureYearsGraph.tsx";
 import CargoManagement from "./components/cargoBubbleGraph.tsx";
+import DelayDurationHeatmap from "./components/delayDurationHeatmap.tsx";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -84,6 +85,7 @@ function App() {
   return (
     <div className="App">
       <main>
+        <DelayDurationHeatmap />
         {/* <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs value={value} onChange={handleChange}>
             <Tab label="Feature One" {...a11yProps(0)} />

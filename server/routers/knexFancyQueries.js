@@ -1,24 +1,27 @@
 const db = require("../config/knexDbConfig");
 
 // feature 6
+/**
+ * try a heatmap for delays
+ * @returns knex object
+ */
 const fancyFeature1 = () => {
-  const query = db("PLANE")
+  const query = db("DELAY")
     .select(
-      "PLANE.PlaneId",
-      "PLANE.ModelNum",
-      db.raw("COUNT(CARGO.CargoId) AS TotalCargos"),
-      db.raw("SUM(CARGO.Weight) AS TotalWeight"),
-      db.raw("AVG(CARGO.Weight) AS AverageWeight")
+      "DELAY.DelayDate",
+      db.raw(
+        "SUM(CASE WHEN DELAY.DelayDuration > 0 THEN DELAY.DelayDuration ELSE 0 END) AS TotalDelayDuration"
+      )
     )
-    .join("CARGO", "PLANE.PlaneId", "CARGO.PlaneId")
-    .where("CARGO.CargoType", "Freight")
-    .groupBy("PLANE.PlaneId", "PLANE.ModelNum")
-    .orderBy("TotalWeight", "desc");
+    .join("FLIGHTS", "DELAY.FlightId", "FLIGHTS.FlightId")
+    .groupBy("DELAY.DelayDate")
+    .orderBy("DELAY.DelayDate");
+
   return query;
 };
 
 /**
- * service
+ * some ai thing maybe (eg recs or chatbot)
  * @returns knex object
  */
 // feature 2
@@ -73,6 +76,8 @@ const fancyFeature2 = () => {
       "PassengerAirlinesFrequency.Airline",
       "PassengerAirlinesFrequency.NumFlights as FlightsWithAirline"
     )
+    .whereNotNull("PassengerTravelFrequency.NumTravels")
+    .whereNotNull("PassengerAirlinesFrequency.NumFlights")
     .orderBy([
       { column: "PassengerTravelFrequency.NumTravels", order: "desc" },
       { column: "PassengerAirlinesFrequency.NumFlights", order: "desc" },
@@ -80,27 +85,68 @@ const fancyFeature2 = () => {
   return query;
 };
 
+/**
+ * double bar graphs
+ * @returns
+ */
 const fancyFeature3 = () => {
-  const query = knex
-    .select("ModelNum", "Manufacturer", "ManufacturerYear")
-    .from(function () {
-      this.select("*")
-        .rowNumber("rn_newest", function () {
-          this.partitionBy("Manufacturer").orderBy("ManufacturerYear", "desc");
-        })
-        .rowNumber("rn_oldest", function () {
-          this.partitionBy("Manufacturer").orderBy("ManufacturerYear", "asc");
-        })
-        .from("PLANE")
-        .as("t");
-    })
-    .where("t.rn_newest", 1)
-    .orWhere("t.rn_oldest", 1)
+  const newest = db("PLANE")
+    .select("Manufacturer")
+    .max("ManufacturerYear as MaxYear")
+    .groupBy("Manufacturer")
+    .having(db.raw("COUNT(*) > ?", [1]));
+
+  const oldest = db("PLANE")
+    .select("Manufacturer")
+    .min("ManufacturerYear as MinYear")
+    .groupBy("Manufacturer")
+    .having(db.raw("COUNT(*) > ?", [1]));
+
+  const query = db("PLANE")
+    .select(
+      "PlaneId",
+      "ModelNum",
+      "Manufacturer",
+      "ManufacturerYear",
+      "PassengerCapacity"
+    )
+    .whereIn(
+      ["Manufacturer", "ManufacturerYear"],
+      db
+        .select("Manufacturer", "MaxYear")
+        .from(newest)
+        .unionAll(db.select("Manufacturer", "MinYear").from(oldest), true)
+        .as("combined")
+    )
     .orderBy("Manufacturer")
     .orderBy("ManufacturerYear");
   return query;
 };
-const fancyFeature4 = () => {};
+
+/**
+ * login / security check feature
+ * @param {string} email
+ * @param {string} password
+ * @returns
+ */
+const fancyFeature4 = async (email, password) => {
+  try {
+    const result = await db("Accounts")
+      .count("* as count")
+      .where({ UserEmail: email })
+      .andWhereRaw("UserPassword LIKE ?", [`%${password}%`]);
+
+    if (result[0].count > 0) {
+      return { success: true };
+    } else {
+      return { success: false, message: "Invalid email or password." };
+    }
+  } catch (e) {
+    console.error(e.stack);
+    throw e;
+  }
+};
+
 const fancyFeature5 = () => {};
 
 module.exports = {

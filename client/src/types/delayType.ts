@@ -7,3 +7,8 @@ export interface Delay {
 export interface DelayGraphProps {
   days: number;
 }
+
+export interface DelayDuration {
+  DelayDate: string;
+  TotalDelayDuration: number;
+}

@@ -15,3 +15,7 @@ export interface CheckIn {
   ScheduledDate: string;
   ScheduledTime: string;
 }
+
+export interface PassengerLogin {
+  Count: number;
+}

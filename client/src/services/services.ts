@@ -2,9 +2,9 @@ import axios from "axios";
 
 import { Flight, AirlineTypes, AirlineDestinations } from "../types/flightType";
 import { Delay } from "../types/delayType";
-import { Passenger, CheckIn } from "../types/passengerTypes";
+import { CheckIn } from "../types/passengerTypes";
 import { PlaneManufactureYears } from "../types/planeType";
-import { CargoPlane, CargoBasedType } from "../types/cargoType";
+import { CargoBasedType } from "../types/cargoType";
 
 const api = axios.create({
   baseURL: "http://localhost:8080/api",
