@@ -80,7 +80,26 @@ const fancyFeature2 = () => {
   return query;
 };
 
-const fancyFeature3 = () => {};
+const fancyFeature3 = () => {
+  const query = knex
+    .select("ModelNum", "Manufacturer", "ManufacturerYear")
+    .from(function () {
+      this.select("*")
+        .rowNumber("rn_newest", function () {
+          this.partitionBy("Manufacturer").orderBy("ManufacturerYear", "desc");
+        })
+        .rowNumber("rn_oldest", function () {
+          this.partitionBy("Manufacturer").orderBy("ManufacturerYear", "asc");
+        })
+        .from("PLANE")
+        .as("t");
+    })
+    .where("t.rn_newest", 1)
+    .orWhere("t.rn_oldest", 1)
+    .orderBy("Manufacturer")
+    .orderBy("ManufacturerYear");
+  return query;
+};
 const fancyFeature4 = () => {};
 const fancyFeature5 = () => {};
 

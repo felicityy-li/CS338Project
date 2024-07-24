@@ -3,7 +3,7 @@ import axios from "axios";
 import { Flight, AirlineTypes, AirlineDestinations } from "../types/flightType";
 import { Delay } from "../types/delayType";
 import { Passenger, CheckIn } from "../types/passengerTypes";
-import { Plane } from "../types/planeType";
+import { PlaneManufactureYears } from "../types/planeType";
 import { CargoPlane, CargoBasedType } from "../types/cargoType";
 
 const api = axios.create({
@@ -58,9 +58,11 @@ export const fetchPassengerCheckIn = async (
   }
 };
 
-export const fetchPlaneDetails = async (): Promise<Plane[]> => {
+export const fetchPlaneManufactureYears = async (): Promise<
+  PlaneManufactureYears[]
+> => {
   try {
-    const response = await api.get<Plane[]>("/plane_details");
+    const response = await api.get<PlaneManufactureYears[]>("/plane_details");
     return response.data;
   } catch (e) {
     console.error(e);
@@ -82,7 +84,9 @@ export const fetchDelays = async (numDays: number): Promise<Delay[]> => {
   }
 };
 
-export const fetchCargoTypesData = async (type: string): Promise<CargoBasedType[]> => {
+export const fetchCargoTypesData = async (
+  type: string
+): Promise<CargoBasedType[]> => {
   try {
     const response = await api.get<CargoBasedType[]>("/cargo_types_data", {
       params: {

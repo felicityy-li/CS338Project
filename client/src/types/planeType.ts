@@ -1,5 +1,7 @@
-export interface Plane {
+export interface PlaneManufactureYears {
+  PlaneId: number;
   ModelNum: number;
   Manufacturer: string;
-  ManufactureYear: number;
+  ManufacturerYear: number;
+  PassengerCapacity: number;
 }

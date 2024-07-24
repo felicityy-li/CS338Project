@@ -8,7 +8,7 @@ import NumDelaysGraph from "./components/numberOfDelaysGraph.tsx";
 import FlightStatus from "./components/flightDetails.tsx";
 import PassengerDestinations from "./components/passengerDestinations.tsx";
 import PassengerCheckIn from "./components/passengerCheckIn.tsx";
-import PlaneDetails from "./components/planeDetails.tsx";
+import PlaneManufactureYearsGraph from "./components/planeManufactureYearsGraph.tsx";
 import CargoManagement from "./components/cargoBubbleGraph.tsx";
 
 function CustomTabPanel(props) {
@@ -104,7 +104,7 @@ function App() {
           <PassengerCheckIn />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={3}>
-          <PlaneDetails />
+          <PlaneManufactureYearsGraph />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={4}>
           <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>

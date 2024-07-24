@@ -11,6 +11,7 @@ GROUP BY PLANE.PlaneId
 ORDER BY TotalWeight DESC;
 
 
+
 -- fancy feature 2
 WITH PassengerTravelFrequency AS (
   SELECT 
@@ -48,4 +49,27 @@ LEFT JOIN PassengerTravelFrequency ptf ON PASSENGER.PassengerId = ptf.PassengerI
 LEFT JOIN PassengerAirlinesFrequency paf ON PASSENGER.PassengerId = paf.PassengerId
 ORDER BY ptf.NumTravels DESC, paf.NumFlights DESC;
 
+
+
 -- fancy feature 3
+SELECT ModelNum, Manufacturer, ManufacturerYear
+FROM (
+  SELECT *,
+         ROW_NUMBER() OVER (
+         PARTITION BY Manufacturer 
+         ORDER BY ManufacturerYear DESC
+  ) as rn_newest,
+         ROW_NUMBER() OVER (
+         PARTITION BY Manufacturer 
+         ORDER BY ManufacturerYear ASC
+  ) as rn_oldest
+  FROM PLANE
+) t
+WHERE rn_newest = 1 OR rn_oldest = 1
+ORDER BY Manufacturer, ManufacturerYear;
+
+
+
+-- fancy feature 4
+
+-- fancy feature 5

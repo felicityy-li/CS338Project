@@ -48,21 +48,23 @@ const feature3 = (passengerIds) => {
   return query;
 };
 
-const feature4 = (manufactureYear) => {
-  const query = db.raw(
-    `SELECT ModelNum, Manufacturer, ManufacturerYear
-    FROM (
-      SELECT *, 
-            ROW_NUMBER() OVER (
-            PARTITION BY Manufacturer 
-            ORDER BY ManufacturerYear DESC
-      ) as rn
-    FROM PLANE 
-    WHERE ManufacturerYear > ?
-    ) t
-    WHERE rn = 1`,
-    manufactureYear
-  );
+const feature4 = () => {
+  const subquery = db("PLANE")
+    .select("Manufacturer")
+    .groupBy("Manufacturer")
+    .having(db.raw("COUNT(*) > ?", [5]));
+
+  const query = db("PLANE")
+    .select(
+      "PlaneId",
+      "ModelNum",
+      "Manufacturer",
+      "ManufacturerYear",
+      "PassengerCapacity"
+    )
+    .whereIn("Manufacturer", subquery)
+    .orderBy("Manufacturer")
+    .orderBy("ManufacturerYear");
   return query;
 };
 

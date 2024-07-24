@@ -46,8 +46,7 @@ router.get("/passenger_check_in", async (req, res) => {
 
 router.get("/plane_details", async (req, res) => {
   try {
-    const year = req.query.year;
-    const results = await queries.feature4(year);
+    const results = await queries.feature4();
     res.json(results);
   } catch (err) {
     console.error("Error executing query:", err.stack);
