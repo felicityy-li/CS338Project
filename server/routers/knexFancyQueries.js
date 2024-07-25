@@ -25,63 +25,13 @@ const fancyFeature1 = () => {
  * @returns knex object
  */
 // feature 2
-const fancyFeature2 = () => {
-  const subquery1 = db("PASSENGER")
-    .join("FLIGHTS", "PASSENGER.FlightId", "FLIGHTS.FlightId")
-    .where("FLIGHTS.Departure", 1)
-    .select(
-      "PASSENGER.PassengerId",
-      "PASSENGER.FirstName",
-      "PASSENGER.LastName"
-    )
-    .count("FLIGHTS.FlightId as NumTravels")
-    .groupBy(
-      "PASSENGER.PassengerId",
-      "PASSENGER.FirstName",
-      "PASSENGER.LastName"
-    )
-    .as("PassengerTravelFrequency");
-
-  const subquery2 = db("PASSENGER")
-    .join("FLIGHTS", "PASSENGER.FlightId", "FLIGHTS.FlightId")
-    .where("FLIGHTS.Departure", 1)
-    .select("PASSENGER.PassengerId", "FLIGHTS.Airline")
-    .count("FLIGHTS.FlightId as NumFlights")
-    .groupBy("PASSENGER.PassengerId", "FLIGHTS.Airline")
-    .as("PassengerAirlinesFrequency");
-
-  const query = db("PASSENGER")
-    .join(
-      "PassengerAddresses",
-      "PassengerAddresses.PassengerId",
-      "PASSENGER.PassengerId"
-    )
-    .leftJoin(
-      subquery1,
-      "PASSENGER.PassengerId",
-      "PassengerTravelFrequency.PassengerId"
-    )
-    .leftJoin(
-      subquery2,
-      "PASSENGER.PassengerId",
-      "PassengerAirlinesFrequency.PassengerId"
-    )
-    .select(
-      "PASSENGER.PassengerId",
-      "PASSENGER.FirstName",
-      "PASSENGER.LastName",
-      "PassengerAddresses.City",
-      "PassengerAddresses.State",
-      "PassengerTravelFrequency.NumTravels as TotalFlights",
-      "PassengerAirlinesFrequency.Airline",
-      "PassengerAirlinesFrequency.NumFlights as FlightsWithAirline"
-    )
-    .whereNotNull("PassengerTravelFrequency.NumTravels")
-    .whereNotNull("PassengerAirlinesFrequency.NumFlights")
-    .orderBy([
-      { column: "PassengerTravelFrequency.NumTravels", order: "desc" },
-      { column: "PassengerAirlinesFrequency.NumFlights", order: "desc" },
-    ]);
+const fancyFeature2 = async (airline, destination, citizenship) => {
+  const query = await db("Flights")
+    .join("Passenger", "Flights.FlightId", "Passenger.FlightId")
+    .select("Flights.Airline", "Flights.Destination")
+    .where("Flights.Airline", airline)
+    .orWhere("Flights.Destination", destination)
+    .orWhere("Passenger.Citizenship", citizenship);
   return query;
 };
 
@@ -144,6 +94,11 @@ const fancyFeature4 = async (email, password) => {
   }
 };
 
+/**
+ *
+ * @param {*} citizenships
+ * @returns
+ */
 const fancyFeature5 = async (citizenships) => {
   const query = await db("Flights")
     .join("Passenger", "Passenger.FlightId", "Flights.FlightId")
@@ -158,25 +113,6 @@ const fancyFeature5 = async (citizenships) => {
     .orderBy(["Citizenship", { column: "Popularity", order: "desc" }]);
   return query;
 };
-
-// const fancyFeature5 = (citizenships) => {
-//   const subquery = db("Flights")
-//     .join("Passenger", "Passenger.FlightId", "Flights.FlightId")
-//     .select(
-//       db.raw("REPLACE(Destination, '\r', '') AS Destination"),
-//       db.raw("REPLACE(Citizenship, '\r', '') AS Citizenship"),
-//       db.raw("COUNT(*) AS Popularity")
-//     )
-//     .whereIn(db.raw("REPLACE(Citizenship, '\r', '')"), citizenships)
-//     .andWhere("Flights.International", 1)
-//     .groupBy("Destination", "Citizenship")
-//     .as("subquery");
-
-//   return db(subquery)
-//     .select("*")
-//     .where("Popularity", ">", 1)
-//     .orderBy(["Citizenship", { column: "Popularity", order: "desc" }]);
-// };
 
 module.exports = {
   fancyFeature1,

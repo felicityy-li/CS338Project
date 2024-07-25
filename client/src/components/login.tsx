@@ -4,7 +4,11 @@ import plane from "../images/plane.jpg";
 import { Box, TextField, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const Login: React.FC = () => {
+interface LoginProps {
+  onLogin: () => void; // Add this prop
+}
+
+const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -22,7 +26,8 @@ const Login: React.FC = () => {
       const result = await fetchPassengerLogin(email, password);
       if (result.success) {
         setError(null);
-        navigate("/checkin");
+        onLogin();
+        navigate("/flight_dashboard");
         console.log("yay");
       } else {
         setError(result.message || "Login failed.");

@@ -13,8 +13,13 @@ router.get("/delay_dureation", async (req, res) => {
 });
 
 router.get("/passenger_rec", async (req, res) => {
+  const { airline, destination, citizenship } = req.query;
   try {
-    const results = await queries.fancyFeature2();
+    const results = await queries.fancyFeature2(
+      airline,
+      destination,
+      citizenship
+    );
     res.json(results);
   } catch (err) {
     console.error("Error executing query:", err.stack);
@@ -45,7 +50,7 @@ router.get("/login", async (req, res) => {
 
 router.get("/destination_popularities", async (req, res) => {
   try {
-    const citizenships = req.query.citizenships
+    const citizenships = req.query.citizenships;
     const results = await queries.fancyFeature5(citizenships);
     res.json(results);
   } catch (err) {

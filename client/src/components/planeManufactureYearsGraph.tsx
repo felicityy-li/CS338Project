@@ -106,7 +106,7 @@ const PlaneManufactureYearsGraph: React.FC = () => {
   if (!chartData) return <div>Loading...</div>;
 
   return (
-    <div style={{ width: "90%", margin: "auto", marginTop: "3%" }}>
+    <div style={{ width: "98%", margin: "auto", marginTop: "3%" }}>
       <FormControl component="fieldset">
         <FormGroup style={{ flexDirection: "row" }}>
           {manufacturers.map((manufacturer) => (

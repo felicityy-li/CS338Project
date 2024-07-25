@@ -1,12 +1,6 @@
 export interface Passenger {
-  PassengerId: number;
-  FirstName: string;
-  LastName: string;
-  City: string;
-  State: string;
-  TotalFlights: number;
   Airline: string;
-  FlightsWithAirline: number;
+  Destination: string;
 }
 
 export interface CheckIn {

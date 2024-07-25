@@ -88,7 +88,7 @@ const PlaneManufacturedDoubleBarGraph: React.FC = () => {
   };
 
   return (
-    <div style={{ width: "90%", margin: "auto", marginTop: "3%" }}>
+    <div style={{ margin: "auto"}}>
       <div style={{ overflowX: "auto" }}>
         <Bar
           data={data}

@@ -44,7 +44,7 @@ const PassengerDestinations: React.FC = () => {
         center={[33.9416, -118.4085]}
         zoom={2}
         // scrollWheelZoom={false}
-        style={{ height: "600px", width: "100%" }}
+        style={{ height: "800px", width: "100%" }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

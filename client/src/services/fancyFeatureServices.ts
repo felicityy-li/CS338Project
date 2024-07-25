@@ -19,9 +19,19 @@ export const fetchDelayDuration = async (): Promise<DelayDuration[]> => {
   }
 };
 
-export const fetchPassengerRecs = async (): Promise<Passenger[]> => {
+export const fetchPassengerRecs = async (
+  airline: string,
+  destination: string,
+  citizenship: string
+): Promise<Passenger[]> => {
   try {
-    const response = await api.get<Passenger[]>("/passenger_rec");
+    const response = await api.get<Passenger[]>("/passenger_rec", {
+      params: {
+        airline: airline,
+        destination: destination,
+        citizenship: citizenship,
+      },
+    });
     return response.data;
   } catch (e) {
     console.error(e);

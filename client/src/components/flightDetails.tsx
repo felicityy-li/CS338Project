@@ -22,6 +22,7 @@ function valuetext(value: number) {
 const FlightStatus: React.FC = () => {
   const [flights, setFlights] = useState<Flight[]>([]);
   const [limit, setLimit] = useState<number>(10);
+  const [showSlider, setShowSlider] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
@@ -48,10 +49,10 @@ const FlightStatus: React.FC = () => {
     setCurrentPage(page);
   };
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
   const totalPages = Math.ceil(flights.length / itemsPerPage);
   const paginatedFlights =
-    limit > 10
+    limit > 5
       ? flights.slice(
           (currentPage - 1) * itemsPerPage,
           currentPage * itemsPerPage
@@ -59,8 +60,11 @@ const FlightStatus: React.FC = () => {
       : flights;
 
   return (
-    <div style={{ width: "90%", margin: "auto", marginTop: "3%" }}>
-      <div style={{ height: "100%", marginBottom: "1.6%" }}>
+    <div style={{ width: "98%", marginLeft: "1%" }}>
+      <div
+        style={{ height: "100%", marginBottom: "1.6%" }}
+        onMouseEnter={() => setShowSlider(true)}
+      >
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
@@ -89,21 +93,24 @@ const FlightStatus: React.FC = () => {
         </TableContainer>
       </div>
 
-      <div style={{ width: "98%", margin: "auto" }}>
-        <Slider
-          aria-label="Flight Limit"
-          defaultValue={10}
-          getAriaValueText={valuetext}
-          valueLabelDisplay="auto"
-          step={10}
-          marks
-          min={10}
-          max={100}
-          value={limit}
-          onChange={handleSliderChange}
-        />
-      </div>
-      {limit > 20 && (
+      {showSlider && (
+        <div style={{ width: "98%", margin: "auto" }}>
+          <Slider
+            aria-label="Flight Limit"
+            defaultValue={5}
+            getAriaValueText={valuetext}
+            valueLabelDisplay="auto"
+            step={5}
+            marks
+            min={5}
+            max={100}
+            value={limit}
+            onChange={handleSliderChange}
+          />
+        </div>
+      )}
+
+      {limit > 5 && (
         <Box mt={2} display="flex" justifyContent="center">
           <Pagination
             count={totalPages}

@@ -71,8 +71,8 @@ const CargoManagement: React.FC = () => {
 
   return (
     <div>
-      <div style={{ width: "90%", margin: "auto", marginTop: "3%" }}>
-        <Typography variant="h6">Select Cargo Type</Typography>
+      <div style={{ width: "90%", margin: "auto" }}>
+        {/* <Typography variant="h6">Select Cargo Type</Typography> */}
         <FormControl component="fieldset">
           <FormGroup row>
             <FormControlLabel

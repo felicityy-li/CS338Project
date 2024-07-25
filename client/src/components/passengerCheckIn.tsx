@@ -45,7 +45,7 @@ const PassengerCheckIn: React.FC = () => {
   ];
 
   return (
-    <div style={{ width: "90%", margin: "auto" }}>
+    <div style={{ width: "90%", margin: "auto", marginBottom: "5%" }}>
       <Paper
         component="form"
         onSubmit={handleSubmit}
