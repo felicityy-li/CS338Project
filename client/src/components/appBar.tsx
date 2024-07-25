@@ -1,15 +1,17 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../images/logo.png";
 
 const AppBarComponent: React.FC = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
   return (
     <AppBar
       position="static"
       sx={{ backgroundColor: "#81d4fa", marginBottom: 2 }}
     >
-      {" "}
       <Toolbar>
         <Button color="inherit" component={Link} to="/" sx={{ marginLeft: 2 }}>
           <img
@@ -24,40 +26,47 @@ const AppBarComponent: React.FC = () => {
           component="div"
           sx={{ flexGrow: 1 }}
         ></Typography>
+
         <Button
-          color="inherit"
+          color={currentPath === "/delay_dashboard" ? "primary" : "inherit"}
           component={Link}
           to="/delay_dashboard"
           sx={{ marginLeft: 2 }}
         >
           Delay
         </Button>
+
         <Button
-          color="inherit"
+          color={currentPath === "/flight_dashboard" ? "primary" : "inherit"}
           component={Link}
           to="/flight_dashboard"
           sx={{ marginLeft: 2 }}
         >
           Flight
         </Button>
+
         <Button
-          color="inherit"
+          color={currentPath === "/plane_dashboard" ? "primary" : "inherit"}
           component={Link}
           to="/plane_dashboard"
           sx={{ marginLeft: 2 }}
         >
           Plane
         </Button>
+
         <Button
-          color="inherit"
+          color={currentPath === "/recommender" ? "primary" : "inherit"}
           component={Link}
           to="/recommender"
           sx={{ marginLeft: 2 }}
         >
           Recommender
         </Button>
+
         <Button
-          color="inherit"
+          color={
+            currentPath === "/popular_destinations" ? "primary" : "inherit"
+          }
           component={Link}
           to="/popular_destinations"
           sx={{ marginLeft: 2 }}
