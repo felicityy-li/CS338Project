@@ -43,4 +43,15 @@ router.get("/login", async (req, res) => {
   }
 });
 
+router.get("/destination_popularities", async (req, res) => {
+  try {
+    const citizenships = req.query.citizenships
+    const results = await queries.fancyFeature5(citizenships);
+    res.json(results);
+  } catch (err) {
+    console.error("Error executing query:", err.stack);
+    res.status(500).send("Error executing query");
+  }
+});
+
 module.exports = router;

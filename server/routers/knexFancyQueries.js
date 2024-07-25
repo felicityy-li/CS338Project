@@ -120,7 +120,6 @@ const fancyFeature3 = async () => {
   return result;
 };
 
-
 /**
  * login / security check feature
  * @param {string} email
@@ -145,7 +144,39 @@ const fancyFeature4 = async (email, password) => {
   }
 };
 
-const fancyFeature5 = () => {};
+const fancyFeature5 = async (citizenships) => {
+  const query = await db("Flights")
+    .join("Passenger", "Passenger.FlightId", "Flights.FlightId")
+    .select(
+      db.raw("REPLACE(Airline, '\r', '') AS Airline"),
+      db.raw("REPLACE(Citizenship, '\r', '') AS Citizenship"),
+      db.raw("COUNT(*) AS Popularity")
+    )
+    .whereIn(db.raw("REPLACE(Citizenship, '\r', '')"), citizenships)
+    .andWhere("Flights.International", 1)
+    .groupBy("Airline", "Citizenship")
+    .orderBy(["Citizenship", { column: "Popularity", order: "desc" }]);
+  return query;
+};
+
+// const fancyFeature5 = (citizenships) => {
+//   const subquery = db("Flights")
+//     .join("Passenger", "Passenger.FlightId", "Flights.FlightId")
+//     .select(
+//       db.raw("REPLACE(Destination, '\r', '') AS Destination"),
+//       db.raw("REPLACE(Citizenship, '\r', '') AS Citizenship"),
+//       db.raw("COUNT(*) AS Popularity")
+//     )
+//     .whereIn(db.raw("REPLACE(Citizenship, '\r', '')"), citizenships)
+//     .andWhere("Flights.International", 1)
+//     .groupBy("Destination", "Citizenship")
+//     .as("subquery");
+
+//   return db(subquery)
+//     .select("*")
+//     .where("Popularity", ">", 1)
+//     .orderBy(["Citizenship", { column: "Popularity", order: "desc" }]);
+// };
 
 module.exports = {
   fancyFeature1,

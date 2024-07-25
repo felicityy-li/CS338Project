@@ -1,8 +1,9 @@
 import axios from "axios";
 
 import { DelayDuration } from "../types/delayType";
-import { Passenger, PassengerLogin } from "../types/passengerTypes";
+import { Passenger } from "../types/passengerTypes";
 import { PlaneManufactureYears } from "../types/planeType";
+import { PopularDestinations } from "../types/flightType";
 
 const api = axios.create({
   baseURL: "http://localhost:8080/api",
@@ -65,6 +66,23 @@ export const fetchPassengerLogin = async (
         message: response.data.message || "Invalid login details.",
       };
     }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+export const fetchPopularDestinations = async (
+  citizenships: string[]
+): Promise<PopularDestinations[]> => {
+  try {
+    const response = await api.get<PopularDestinations[]>(
+      "/destination_popularities",
+      {
+        params: { citizenships: citizenships },
+      }
+    );
+    return response.data;
   } catch (e) {
     console.error(e);
     throw e;

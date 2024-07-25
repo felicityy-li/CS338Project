@@ -15,3 +15,9 @@ export interface AirlineDestinations {
   Airline: string;
   NumberOfDestinations: number;
 }
+
+export interface PopularDestinations {
+  Airline: string;
+  Citizenship: string;
+  Popularity: number;
+}
