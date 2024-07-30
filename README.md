@@ -29,15 +29,16 @@
 - Start the Node.js server.
 - Start the React.js development server.
 
-## Steps to Generate "Production" Dataset and Load Into Database 
+## Implemented Application Features
+1. Login Page
+2. Destination Recommender
+3. Delay Duration Heatmap
+4. Cargo Analysis
+5. All Flights Graph
+6. Popular Destinations Map
+
+
+## Generating the "Production" Dataset and Loading Into Database 
+1. Follow the same steps as the sample database to begin the application using the production dataset below.
 - Dataset Source URL: [Link to Dataset](https://docs.google.com/spreadsheets/d/17Yw6M64DnXAd3H8bzVjYxYuBQZWKBg9eiUowmcuEjhU/edit?usp=sharing)
-- Code: [Link to SQLQueries](https://github.com/felicityy-li/CS338Project/blob/main/sqlQueries/featureQueries.sql)
-- Implemented Features: 
-  1. Find Flight Status and Details
-  2. Passenger Data
-  3. Checking Flight Info for Passengers
-  4. Plane Details
-  5. Delays per Day
-  6. Cargo Management
-
-
+- Features Code: [Link to SQLQueries](https://github.com/felicityy-li/CS338Project/blob/main/sqlQueries/featureQueries.sql)
