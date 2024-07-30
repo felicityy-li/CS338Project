@@ -1,3 +1,7 @@
+/**
+ * frontend services for the fancy features implemented
+ */
+
 import axios from "axios";
 
 import { DelayDuration } from "../types/delayType";

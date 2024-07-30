@@ -1,3 +1,7 @@
+/**
+ * routers for the fancy features implemented
+ */
+
 const db = require("../config/knexDbConfig");
 
 // feature 6

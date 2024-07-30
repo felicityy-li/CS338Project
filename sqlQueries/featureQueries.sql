@@ -1,69 +1,78 @@
 -- feature 1
-Select FlightNum, Airline, ScheduledDate, ScheduledTime 
-from Flights order by ScheduledDate, ScheduledTime
-limit 10;
+SELECT COUNT(*) AS count
+FROM Accounts
+WHERE
+  BINARY UserEmail = ?
+  AND UserPassword LIKE ?;
 
 
 
 -- feature 2
-SELECT Airline, COUNT(*) as NumberOfDestinations
-FROM Flights 
-WHERE Departure = 1
-GROUP BY Airline
-ORDER BY NumberOfDestinations DESC;
+SELECT Flights.Airline, Flights.Destination
+FROM Flights
+JOIN Passenger ON Flights.FlightId = Passenger.FlightId
+WHERE
+  Flights.Airline = ?
+  OR Flights.Destination = ?
+  OR Passenger.Citizenship = ?;
 
 
 
 -- feature 3
-SELECT 
-  FLIGHTS.FlightNum, 
-  FLIGHTS.Airline, 
-  FLIGHTS.Terminal, 
-  FLIGHTS.ScheduledDate, 
-  FLIGHTS.ScheduledTime, 
-  FLIGHTS.International, 
-  FLIGHTS.Destination
-FROM FLIGHTS
-JOIN PASSENGER ON PASSENGER.FlightId = FLIGHTS.FlightId
-WHERE PASSENGER.PassengerId in ('P100', 'P101', 'P102', 'P1', 'P104', 'P82', 'P123')
-  AND FLIGHTS.ScheduledDate BETWEEN '2023-06-01' AND '2024-08-30'
-ORDER BY FLIGHTS.ScheduledDate DESC;
+SELECT
+  DELAY.DelayDate,
+  SUM(
+    CASE 
+      WHEN DELAY.DelayDuration > 0 
+      THEN DELAY.DelayDuration 
+      ELSE 0
+    END) 
+AS TotalDelayDuration
+FROM DELAY
+JOIN FLIGHTS ON DELAY.FlightId = FLIGHTS.FlightId
+GROUP BY DELAY.DelayDate
+ORDER BY DELAY.DelayDate;
 
 
 
 -- feature 4 
-Select ModelNum, Manufacturer, ManufacturerYear
-from (
-  Select *, 
-         ROW_NUMBER() OVER (
-      PARTITION BY Manufacturer 
-      ORDER BY ManufacturerYear DESC
-    ) as rn
-  FROM PLANE 
-  WHERE ManufacturerYear > 2017
-) t
-WHERE rn = 1;
+SELECT
+  PlaneId,
+  COUNT(CargoId) AS TotalCargos,
+  SUM(Weight) AS TotalWeight,
+  AVG(Weight) AS AverageWeight
+FROM Cargo
+WHERE CargoType = ?
+GROUP BY PlaneId
+HAVING COUNT(CargoId) > 0
+ORDER BY TotalCargos ASC;
 
 
 
 -- feature 5
-SELECT DATE(FLIGHTS.ScheduledDate) AS FlightDate,
-  COUNT(*) AS NumDelays,
-  SUM(IF(DELAY.DelayDuration > 0, DELAY.DelayDuration, 0)) AS TotalDelayDuration
-FROM FLIGHTS
-LEFT JOIN DELAY ON FLIGHTS.FlightId = DELAY.FlightId
-GROUP BY FLIGHTS.ScheduledDate
-ORDER BY FLIGHTS.ScheduledDate DESC
-LIMIT 5;
+SELECT 
+  FlightNum, 
+  Airline, 
+  ScheduledDate, 
+  ScheduledTime, 
+  FlightId, 
+  PlaneId 
+FROM Flights 
+ORDER BY ScheduledDate, ScheduledTime; 
 
 
 
 -- feature 6
+WITH FlightDetails AS (
+  SELECT 
+    FLIGHTS.Airline,
+    COUNT(DISTINCT FLIGHTS.Destination) AS NumberOfDestinations
+  FROM FLIGHTS
+  WHERE FLIGHTS.Departure = 1
+  GROUP BY FLIGHTS.Airline
+)
 SELECT 
-  PlaneId, 
-  COUNT(CargoId) AS TotalCargos,
-  SUM(Weight) AS TotalWeight, 
-  AVG(Weight) AS AverageWeight
-FROM Cargo
-WHERE CargoType = 'Freight'
-GROUP BY PlaneId 
+  Airline,
+  NumberOfDestinations
+FROM FlightDetails
+ORDER BY NumberOfDestinations DESC;

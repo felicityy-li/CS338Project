@@ -1,3 +1,8 @@
+/**
+ * frontend fetch functions to fetch the data from the backend
+ * fetches all the data for the features implemented
+ */
+
 import axios from "axios";
 
 import { Flight, AirlineTypes, AirlineDestinations } from "../types/flightType";

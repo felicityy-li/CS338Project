@@ -1,17 +1,39 @@
 -- fancy feature 1
 SELECT
-  Flights.FlightId,
-  Delay.DelayDate,
-  SUM(CASE WHEN DelayDuration > 0 THEN DelayDuration ELSE 0 END) AS TotalDelayDuration
-FROM DELAY
-JOIN Flights ON Delay.FlightId = Flights.FlightId
-GROUP BY Flights.FlightId, Delay.DelayDate
-ORDER BY Delay.DelayDate;
+  FLIGHTS.FlightNum,
+  FLIGHTS.Airline,
+  FLIGHTS.Terminal,
+  FLIGHTS.ScheduledDate,
+  FLIGHTS.ScheduledDate,
+  FLIGHTS.ScheduledTime,
+  FLIGHTS.International,
+  FLIGHTS.Destination
+FROM FLIGHTS
+JOIN PASSENGER ON PASSENGER.FlightId = FLIGHTS.FlightId
+WHERE PASSENGER.PassengerId IN (/* list of passengerIds */)
+  OR PASSENGER.PassengerId LIKE CONCAT(/* list of passengerIds */, '0%')
+ORDER BY FLIGHTS.ScheduledDate DESC;
 
 
 
 -- fancy feature 2
+WITH ManufacturerFilter AS (
+  SELECT Manufacturer
+  FROM PLANE
+  GROUP BY Manufacturer
+  HAVING COUNT(*) > 5
+)
 
+SELECT
+  PlaneId,
+  ModelNum,
+  Manufacturer,
+  ManufacturerYear,
+  PassengerCapacity
+FROM PLANE
+WHERE
+  Manufacturer IN (SELECT Manufacturer FROM ManufacturerFilter)
+ORDER BY Manufacturer, ManufacturerYear;
 
 
 
@@ -26,7 +48,7 @@ NewestAndOldest AS (
   SELECT PlaneId, ModelNum, Manufacturer, ManufacturerYear, PassengerCapacity
   FROM PLANE
   WHERE (Manufacturer, ManufacturerYear) IN (
-      SELECT Manufacturer, MAX(ManufacturerYear)
+    SELECT Manufacturer, MAX(ManufacturerYear)
     FROM PLANE
     WHERE Manufacturer IN (SELECT Manufacturer FROM ManufacturerCounts)
     GROUP BY Manufacturer
@@ -45,20 +67,47 @@ ORDER BY Manufacturer, ManufacturerYear;
 
 
 -- fancy feature 4
-SELECT COUNT(*) AS Count
-FROM Accounts
-WHERE UserEmail = LOWER('edwardsmith24@mail.com')
-AND UserPassword LIKE '%passES24word%';
+SELECT
+  DATE(FLIGHTS.ScheduledDate) AS FlightDate,
+  COUNT(*) AS NumDelays,
+  SUM(
+    CASE 
+      WHEN DELAY.DelayDuration > 0 
+      THEN DELAY.DelayDuration 
+      ELSE 0 
+    END) 
+  AS TotalDelayDuration
+FROM FLIGHTS
+LEFT JOIN
+  DELAY ON FLIGHTS.FlightId = DELAY.FlightId
+WHERE
+  FLIGHTS.ScheduledDate BETWEEN DATE_SUB('2023-12-31', INTERVAL ? DAY) 
+  AND '2023-12-31'
+GROUP BY DATE(FLIGHTS.ScheduledDate)
+ORDER BY FLIGHTS.ScheduledDate DESC;
 
 
 
 -- fancy feature 5
-SELECT 
-  REPLACE(Destination, '\r', '') AS Destination, 
-  REPLACE(Citizenship, '\r', '') AS Citizenship, 
-  COUNT(*) AS Popularity
-FROM Flights 
-JOIN Passenger ON Passenger.FlightId = Flights.FlightId
-WHERE REPLACE(Citizenship, '\r', '') IN ('Australia', 'Germany', 'UK', 'India', 'USA', 'France', 'Canada', 'Singapore')
-GROUP BY Citizenship, Destination
-ORDER BY Citizenship, Popularity DESC;
+WITH CleanedCitizenship AS (
+  SELECT DISTINCT REPLACE(Passenger.Citizenship, '\r', '') AS CleanedCitizenship
+  FROM Passenger
+  WHERE REPLACE(Passenger.Citizenship, '\r', '') IN (/* list of citizenships */)
+),
+FlightPopularity AS (
+  SELECT
+    REPLACE(Flights.Airline, '\r', '') AS CleanedAirline,
+    REPLACE(Passenger.Citizenship, '\r', '') AS CleanedCitizenship,
+    COUNT(*) AS Popularity
+  FROM Flights
+  JOIN Passenger ON Passenger.FlightId = Flights.FlightId
+  WHERE Flights.International = 1
+  GROUP BY REPLACE(Flights.Airline, '\r', ''), REPLACE(Passenger.Citizenship, '\r', '')
+)
+SELECT
+  CleanedAirline AS Airline,
+  CleanedCitizenship AS Citizenship,
+  Popularity
+FROM FlightPopularity
+JOIN CleanedCitizenship ON FlightPopularity.CleanedCitizenship = CleanedCitizenship.CleanedCitizenship
+ORDER BY CleanedCitizenship, Popularity DESC;

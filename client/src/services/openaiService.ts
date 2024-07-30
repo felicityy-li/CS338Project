@@ -1,4 +1,7 @@
-// openaiService.ts
+/**
+ * service to fetch the openai api
+ */
+
 import axios from "axios";
 
 const OPENAI_API_URL = "https://api.openai.com/v1/completions";

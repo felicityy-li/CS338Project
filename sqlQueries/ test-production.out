@@ -1,0 +1,336 @@
+feature 1
+[
+  {
+    "count": "0"
+  }
+]
+
+feature 2
+[
+  {
+    "Airline": "Air China",
+    "Destination": "Mexico\r"
+  },
+  {
+    "Airline": "Air China",
+    "Destination": "Malaysia\r"
+  },
+  {
+    "Airline": "Air China",
+    "Destination": "Burundi\r"
+  },
+  {
+    "Airline": "Air China",
+    "Destination": "Niger\r"
+  },
+  {
+    "Airline": "Air China",
+    "Destination": "Comoros\r"
+  }
+]
+
+feature 3
+[
+  {
+    "DelayDate": "2023-01-03",
+    "TotalDelayDuration": "44"
+  },
+  {
+    "DelayDate": "2023-01-05",
+    "TotalDelayDuration": "213"
+  },
+  {
+    "DelayDate": "2023-01-11",
+    "TotalDelayDuration": "157"
+  },
+  {
+    "DelayDate": "2023-01-12",
+    "TotalDelayDuration": "15"
+  },
+  {
+    "DelayDate": "2023-01-15",
+    "TotalDelayDuration": "284"
+  }
+]
+
+feature 4
+[
+  {
+    "PlaneId": "PL77",
+    "TotalCargos": "1",
+    "TotalWeight": "403",
+    "AverageWeight": "403.0000"
+  },
+  {
+    "PlaneId": "PL137",
+    "TotalCargos": "1",
+    "TotalWeight": "720",
+    "AverageWeight": "720.0000"
+  },
+  {
+    "PlaneId": "PL151",
+    "TotalCargos": "1",
+    "TotalWeight": "719",
+    "AverageWeight": "719.0000"
+  },
+  {
+    "PlaneId": "PL23",
+    "TotalCargos": "1",
+    "TotalWeight": "2155",
+    "AverageWeight": "2155.0000"
+  },
+  {
+    "PlaneId": "PL157",
+    "TotalCargos": "1",
+    "TotalWeight": "454",
+    "AverageWeight": "454.0000"
+  }
+]
+
+feature 5
+[
+  {
+    "FlightNum": 6800,
+    "Airline": "El Al",
+    "ScheduledDate": "2023-01-01",
+    "ScheduledTime": "01:21 PM",
+    "FlightId": "1002452",
+    "PlaneId": "PL45"
+  },
+  {
+    "FlightNum": 2776,
+    "Airline": "Volaris",
+    "ScheduledDate": "2023-01-01",
+    "ScheduledTime": "01:43 AM",
+    "FlightId": "1006267",
+    "PlaneId": "PL110"
+  },
+  {
+    "FlightNum": 9031,
+    "Airline": "Alaska Airlines",
+    "ScheduledDate": "2023-01-01",
+    "ScheduledTime": "01:48 PM",
+    "FlightId": "1006765",
+    "PlaneId": "PL140"
+  },
+  {
+    "FlightNum": 5285,
+    "Airline": "Norwegian Air Shuttle",
+    "ScheduledDate": "2023-01-01",
+    "ScheduledTime": "01:52 AM",
+    "FlightId": "1003928",
+    "PlaneId": "PL175"
+  },
+  {
+    "FlightNum": 3680,
+    "Airline": "El Al",
+    "ScheduledDate": "2023-01-01",
+    "ScheduledTime": "01:56 PM",
+    "FlightId": "1003452",
+    "PlaneId": "PL96"
+  }
+]
+
+feature 6
+[
+  {
+    "Airline": "Alaska Airlines",
+    "NumberOfDestinations": "85"
+  },
+  {
+    "Airline": "Copa Airlines",
+    "NumberOfDestinations": "82"
+  },
+  {
+    "Airline": "El Al",
+    "NumberOfDestinations": "81"
+  },
+  {
+    "Airline": "Turkish Airlines",
+    "NumberOfDestinations": "80"
+  },
+  {
+    "Airline": "Singapore Airlines",
+    "NumberOfDestinations": "79"
+  }
+]
+
+fancy feature 1
+[
+  {
+    "FlightNum": 8498,
+    "Airline": "Aeroflot",
+    "Terminal": "TBIT",
+    "FLIGHTS.ScheduledDate": "2023-12-28",
+    "ScheduledTime": "04:46 AM",
+    "Destination": "Algeria\r"
+  },
+  {
+    "FlightNum": 1043,
+    "Airline": "China Airlines",
+    "Terminal": "T6",
+    "FLIGHTS.ScheduledDate": "2023-11-30",
+    "ScheduledTime": "11:47 PM",
+    "Destination": "Cameroon\r"
+  },
+  {
+    "FlightNum": 4212,
+    "Airline": "Virgin Atlantic",
+    "Terminal": "T4",
+    "FLIGHTS.ScheduledDate": "2023-09-30",
+    "ScheduledTime": "05:59 AM",
+    "Destination": "Lexington\r"
+  },
+  {
+    "FlightNum": 8755,
+    "Airline": "Qatar Airways",
+    "Terminal": "T5",
+    "FLIGHTS.ScheduledDate": "2023-09-19",
+    "ScheduledTime": "09:51 AM",
+    "Destination": "Winston-Salem\r"
+  },
+  {
+    "FlightNum": 3582,
+    "Airline": "Cathay Pacific",
+    "Terminal": "T3",
+    "FLIGHTS.ScheduledDate": "2023-06-25",
+    "ScheduledTime": "02:38 AM",
+    "Destination": "Azerbaijan\r"
+  }
+]
+
+fancy feature 2
+[
+  {
+    "PlaneId": "PL185",
+    "ModelNum": 8751,
+    "Manufacturer": "Airbus",
+    "ManufacturerYear": 1965,
+    "PassengerCapacity": 171
+  },
+  {
+    "PlaneId": "PL140",
+    "ModelNum": 3048,
+    "Manufacturer": "Airbus",
+    "ManufacturerYear": 1979,
+    "PassengerCapacity": 267
+  },
+  {
+    "PlaneId": "PL191",
+    "ModelNum": 1183,
+    "Manufacturer": "Airbus",
+    "ManufacturerYear": 1980,
+    "PassengerCapacity": 271
+  },
+  {
+    "PlaneId": "PL26",
+    "ModelNum": 9388,
+    "Manufacturer": "Airbus",
+    "ManufacturerYear": 1987,
+    "PassengerCapacity": 164
+  },
+  {
+    "PlaneId": "PL23",
+    "ModelNum": 2156,
+    "Manufacturer": "Airbus",
+    "ManufacturerYear": 1998,
+    "PassengerCapacity": 201
+  }
+]
+
+fancy feature 3
+[
+  {
+    "FlightDate": "2023-12-31",
+    "NumDelays": "24",
+    "TotalDelayDuration": "93"
+  },
+  {
+    "FlightDate": "2023-12-30",
+    "NumDelays": "19",
+    "TotalDelayDuration": "0"
+  },
+  {
+    "FlightDate": "2023-12-29",
+    "NumDelays": "16",
+    "TotalDelayDuration": "213"
+  },
+  {
+    "FlightDate": "2023-12-28",
+    "NumDelays": "24",
+    "TotalDelayDuration": "155"
+  },
+  {
+    "FlightDate": "2023-12-27",
+    "NumDelays": "29",
+    "TotalDelayDuration": "242"
+  }
+]
+
+fancy feature 4
+[
+  {
+    "PlaneId": "PL195",
+    "ModelNum": 7661,
+    "Manufacturer": "Aero Vodochody",
+    "ManufacturerYear": 1983,
+    "PassengerCapacity": 243
+  },
+  {
+    "PlaneId": "PL4",
+    "ModelNum": 5507,
+    "Manufacturer": "Aero Vodochody",
+    "ManufacturerYear": 2016,
+    "PassengerCapacity": 275
+  },
+  {
+    "PlaneId": "PL160",
+    "ModelNum": 7919,
+    "Manufacturer": "Aerospace Industrial Development Corporation",
+    "ManufacturerYear": 1985,
+    "PassengerCapacity": 155
+  },
+  {
+    "PlaneId": "PL154",
+    "ModelNum": 4860,
+    "Manufacturer": "Aerospace Industrial Development Corporation",
+    "ManufacturerYear": 1998,
+    "PassengerCapacity": 270
+  },
+  {
+    "PlaneId": "PL42",
+    "ModelNum": 4486,
+    "Manufacturer": "AgustaWestland",
+    "ManufacturerYear": 1967,
+    "PassengerCapacity": 297
+  }
+]
+
+fancy feature 5
+[
+  {
+    "Airline": "Copa Airlines",
+    "Citizenship": "India",
+    "Popularity": "4"
+  },
+  {
+    "Airline": "Air France",
+    "Citizenship": "India",
+    "Popularity": "4"
+  },
+  {
+    "Airline": "Volaris",
+    "Citizenship": "India",
+    "Popularity": "4"
+  },
+  {
+    "Airline": "Cathay Pacific",
+    "Citizenship": "India",
+    "Popularity": "3"
+  },
+  {
+    "Airline": "LATAM Airlines",
+    "Citizenship": "India",
+    "Popularity": "3"
+  }
+]
