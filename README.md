@@ -1,9 +1,9 @@
 # LAX Air Traffic Analysis System - Sample Database Setup Guide
 
 ### Development file
-`./client/src` for UI code __
-`./server` for routers __
-`./sqlQueries` for the feature queries __
+`./client/src` for UI code <br />
+`./server` for routers <br />
+`./sqlQueries` for the feature queries <br />
 
 ## Prerequisites
 - MySQL: [Install MySQL](https://dev.mysql.com/doc/refman/8.0/en/installing.html)
